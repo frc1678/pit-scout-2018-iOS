@@ -1,4 +1,4 @@
-#**1678 Pit Scout 2018**
+#**1678 Pit Scout 2018**#
 
 This is a guideline for handling and contributing to the 2018 season’s projects.
 
@@ -7,14 +7,17 @@ This is a guideline for handling and contributing to the 2018 season’s project
 The 2018 FRC 1678 Pit-Scout app, ran on an iPhone 5s. A student visits all the pits in the competition and talks to the teams to gather information like number of wheels on the robot, pit organization etc. They also take and upload photos of the robot.
 
 ##**Use Notes**
- To select the "selected image", view the images and then tap on the one you want to select. This will set the selected image url, and dismiss the image gallery so that you can continue adding data.
+
+To select the "selected image", view the images and then tap on the one you want to select. This will set the selected image url, and dismiss the image gallery so that you can continue adding data.
 
 If you add 5 or more images for a given team, you run the risk of causing the image gallery to significantly lag, and possibly crash.
 
 ##**Style Guide**
+
 Use standard Swift code conventions. See [here](https://github.com/raywenderlich/swift-style-guide#correctness) for more information.
 	
 ##**Commit Guide**
+
 You should also make sure that you are writing good commit messages! Here are a couple articles on this: [1](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) [2](http://chris.beams.io/posts/git-commit/).
 
 Particularly, you should make sure to write your commits in the imperative mood ("Add somefeature", not "Added somefeature") and capitalize the first word. If the change is complicated, use multiple lines to describe it.
@@ -26,10 +29,12 @@ Additionally, you should try to make your commits as small as possible (often re
 Here's how to get your code into the main project repository:
 
 ###**If you've just joined the team:**
+
 1. Make an account on GitHub.
 2. Ask the App Programming lead to add your account to the frc1678 repositories.
 
 ###**If it's the first time you contributed to a repo:**
+
 1. Fork the repo
   +Login to github and navigate to the repo.
   +Click the "Fork" button in the upper right corner of the screen.
@@ -37,6 +42,7 @@ Here's how to get your code into the main project repository:
   +`git clone https://github.com/<your_name>/<repo_name>.git`, where `<your_name>` is your github username and `<repo_name>` is the project repository name (eg. scout-2017, server-2017).
 
 ###**Anytime you want to make a change:**
+
 1. Create and checkout a new branch.
   *`git checkout -b <your-branch-name>`, where `<your-branch-name>` is a descriptive name for your branch. Use dashes in the branch name, not underscores.
 2.Make whatever code changes you want/need/ to make. Be sure to test your changes!
@@ -66,7 +72,9 @@ See this [stackoverflow question](https://stackoverflow.com/questions/9562304/gi
 ##**Helpful Tips**
 
 ###**Other remotes**
+
 You can add "remotes" to github that refer to other people's robot code repos. This allows you to, for example, take a look at someone else's code to look over it. You would be able to `git checkout <name_of_person>/juicy-commit` to see it. To add a remote, just do `git remote add <name_of_person> https://github.com/<username>/<repo_name>.git`. Once you've done this, you can use `git fetch <name_of_person>` to get updated code from other people's repos!
 
 ###**iOS Programming Tips**
+
 Check out this [guide](https://docs.google.com/document/d/19I2pF2Krz-MLcP4INNbAA4HgbnG3rdTHmwM8_2428go/edit?usp=sharing) for some helpful tips and tricks about using Xcode and writing in Swift!
