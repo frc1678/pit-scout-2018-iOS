@@ -1,4 +1,5 @@
 #**1678 Pit Scout 2018**
+
 This is a guideline for handling and contributing to the 2018 season’s projects.
 
 ##**Application Information**
