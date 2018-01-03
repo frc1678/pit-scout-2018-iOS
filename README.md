@@ -49,31 +49,44 @@ Here's how to get your code into the main project repository:
  	 + `git clone https://github.com/<your_name>/<repo_name>.git`, where `<your_name>` is your github username and `<repo_name>` is the project repository name (eg. scout-2017, server-2017).
 
 
+### Keeping your fork up to date:
+
+1. Add a remote for the upstream main repository you forked.
+	* `git remote add upstream https://github.com/frc1678/<repo_name>`, where `<repo_name>` is the name of the app you are trying to update.
+2. Whenever you want to update your fork with the latest updates on the main repository, fetch the upstream branches and merge the upstream remote's master into your local master branch.
+	* `git fetch upstream` to fetch all the branches
+	* `git branch -a` to see all the branches, both local and remote
+	* `git checkout master` to checkout to your local branch master
+	* `git merge remotes/upstream/master` to update your local branch master with the main repository's master branch
+See [here](https://gist.github.com/Chaser324/ce0505fbed06b947d962) for more information.
+
+
 ### Anytime you want to make a change:
 
-1. Create and checkout a new branch.
+1. Update your fork's master branch.
+2. Create and checkout a new branch.
  	 * `git checkout -b <your-branch-name>`, where `<your-branch-name>` is a descriptive name for your branch. Use dashes in the branch name, not underscores.
-2. Make whatever code changes you want/need/ to make. Be sure to test your changes!
-3. Commit your work locally.
+3. Make whatever code changes you want/need/ to make. Be sure to test your changes!
+4. Commit your work locally.
   	+ Try to make your commits as atomic (small) as possible. For example, moving functions around should be different from adding features, and changes to one subsystem should be in a different commit than changes to another subsystem.
  	 + Follow [these](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) conventions for commit messages.
  	 + If your change is anything more than a few lines or small fixes, don't skip the extended description. If you are always using git commit with the -m option, stop doing that.
 See this [stackoverflow question](https://stackoverflow.com/questions/9562304/github-commit-with-extended-message) for instructions on how to write an extended commit description.
-4. Push to your forked repo.
+5. Push to your forked repo.
  	 + `git push origin <your_branch_name>`.
-5. Submit a pull request.
+6. Submit a pull request.
  	 1. Log into github.
  	 2. Go to the page for your forked repo.
  	 3. Select the branch that you just pushed from the "Branch" dropdown menu.
  	 4. Click "New Pull Request".
  	 5. Review the changes that you made.
  	 6. If you are happy with your changes, click "Create Pull Request".
- 6. Wait
+ 7. Wait
  	 + People must review (and approve of) your changes before they are merged.
   	 + Specifically, ***2 experienced students*** contributing to that project have to approve it
  	 + If there are any concerns about your pull request, fix them. Depending on how severe the concerns are, the pull request may be merged without it, but everyone will be happier if you fix your code. To update your PR, just push to the branch on your forked repo.
   	+ Don't dismiss someone's review when you make changes - instead, ask them to re-review it.
-7. Merge your changes into master
+8. Merge your changes into master
 	  + If there are no conflicts, push the "Squash and merge" button, write a good commit message, and merge the changes.
  	 + If there are conflicts, fix them locally on your branch, push them, and then squash and merge.
 
