@@ -152,11 +152,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let willCheesecake = PSUISwitchViewController()
             willCheesecake.setup("Will Cheesecake", firebaseRef: self.ourTeam.child("pitDidDemonstrateCheesecakePotential"), initialValue: snap.childSnapshot(forPath: "pitDidDemonstrateCheesecakePotential").value)
     
+            // SEALS Textfield
+            let SEALSNotes = PSUITextInputViewController()
+            SEALSNotes.setup("SEALS Notes:", firebaseRef: self.ourTeam.child("SEALSNotes"), initialValue: snap.childSnapshot(forPath: "SEALSNotes   ").value)
+            
             self.addChildViewController(self.selectedImageName)
             self.addChildViewController(programmingLanguage)
             self.addChildViewController(driveTrain)
             self.addChildViewController(availableWeight)
             self.addChildViewController(willCheesecake)
+            self.addChildViewController(SEALSNotes)
             
             // UI Elements
             for childViewController in self.childViewControllers {

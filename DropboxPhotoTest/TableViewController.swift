@@ -51,10 +51,8 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         super.viewDidLoad()
         self.tableView.allowsSelection = false //You can select once we are done setting up the photo uploader object
         firebaseStorageRef = Storage.storage().reference(forURL: "gs://scouting-2017-5f51c.appspot.com")
-        
         // Get a reference to the storage service, using the default Firebase App
         // Create a storage reference from our storage service
-        
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(TableViewController.didLongPress(_:)))
         self.tableView.addGestureRecognizer(longPress)
         
@@ -86,12 +84,12 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         if let arrayTeamsDatabase = snap.value as? [NSDictionary] { // If we restore from backup, then the teams will be an array
             td = NSDictionary(objects: arrayTeamsDatabase, forKeys: Array(arrayTeamsDatabase.map { String(describing: $0["number"] as! Int) }) as [NSCopying])
         }
+        updateTeams()
         let teamsDatabase: NSDictionary = td ?? snap.value as! NSDictionary
         for (_, info) in teamsDatabase {
             // teamInfo is the information for the team at certain number
             let teamInfo = info as! [String: AnyObject]
             let teamNum = teamInfo["number"] as? Int
-            
             if teamNum != nil {
                 self.teams[String(describing: teamNum!)] = teamInfo
                 let scoutedTeamInfoDict = ["num": teamNum!, "hasBeenScouted": 0]
@@ -123,6 +121,44 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                 firebaseTeams.append(teamInfo["num"]!)
             }
             // If the teams in the cache are the same as the teams on Firebase, use the information inside the cache to update the table view
+            if Set(cacheTeams) == Set(firebaseTeams) {
+                self.scoutedTeamInfo = cacheScoutedTeamInfo
+            } else {
+                // Some or all teams have changed on Firebase, but if there are any identical teams, we want to keep the data on that team
+                let commonTeamSet = Set(cacheTeams).intersection(Set(firebaseTeams))
+                var commonTeams = Array(commonTeamSet)
+                firebaseTeams = firebaseTeams.filter { !commonTeams.contains($0) }
+                // Appending the cached information about the common teams
+                self.scoutedTeamInfo = self.scoutedTeamInfo.filter { !commonTeams.contains($0["num"]!) }
+                for i in 0..<commonTeams.count {
+                    // Add cached info to cacheScoutedTeamInfo
+                    let teamDictionary = cacheScoutedTeamInfo.filter { $0["num"] == commonTeams[i] }
+                    self.scoutedTeamInfo.append(teamDictionary[0])
+                }
+            }
+            // Sorts the scouted teams into numerical order
+            self.scoutedTeamInfo.sort {
+                $0["num"]! < $1["num"]!
+            }
+            self.tableView.reloadData()
+        })
+    }
+    func updateTeams() {
+         print("Updating teams")
+        self.cache.fetch(key: "scoutedTeamInfo").onSuccess({ [unowned self] (data) -> () in
+            let cacheScoutedTeamInfo = NSKeyedUnarchiver.unarchiveObject(with: data) as! [[String: Int]]
+            var cacheTeams: [Int] = []
+            var firebaseTeams: [Int] = []
+            for i in 0..<cacheScoutedTeamInfo.count {
+                let teamInfo = cacheScoutedTeamInfo[i]
+                cacheTeams.append(teamInfo["num"]!)
+            }
+            for i in 0..<self.scoutedTeamInfo.count {
+                let teamInfo = self.scoutedTeamInfo[i]
+                firebaseTeams.append(teamInfo["num"]!)
+            }
+            // If the teams in the cache are the same as the teams on Firebase, use the information inside the cache to update the table view
+            
             if Set(cacheTeams) == Set(firebaseTeams) {
                 self.scoutedTeamInfo = cacheScoutedTeamInfo
             } else {
@@ -178,6 +214,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         
         //adding textfields to our dialog box
         alertController.addTextField { (textField) in
+            textField.keyboardType = UIKeyboardType.numberPad
             textField.placeholder = "Enter Team Number"
         }
         alertController.addTextField { (textField) in
@@ -197,8 +234,9 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
     
     func teamAdder(_ teamNum: Int, _ teamName: String) {
         if !self.teamNums.contains(self.teamNum!) {
+            //keyboardType = UIKeyboardType.numberPad
             firebase?.child("Teams").child(String(teamNum)).child("name").setValue(teamName)
-            firebase?.child("Teams").child(String(teamNum)).child("number").setValue(String(teamNum))
+            firebase?.child("Teams").child(String(teamNum)).child("number").setValue(Int(teamNum))
         }
     }
     
@@ -224,11 +262,10 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        //updateTeams()
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellReuseId, for: indexPath) as UITableViewCell
         cell.textLabel?.text = "Please Wait..."
         if self.scoutedTeamInfo.count == 0 { return cell }
-
         var text = "shouldntBeThis"
         var teamName : String = ""
         if (indexPath as NSIndexPath).section == 1 {
