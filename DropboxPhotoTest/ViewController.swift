@@ -137,6 +137,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             programmingLanguage.segments = ["Java", "C++", "Labview", "Other"]
             programmingLanguage.neededType = .string
             
+            
             // Switch
             let driveTrain = PSUISegmentedViewController()
             driveTrain.setup("Drive Train:", firebaseRef: self.ourTeam.child("pitDriveTrain"), initialValue: snap.childSnapshot(forPath: "pitDriveTrain").value)
@@ -373,8 +374,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let value = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else { return }
         let keyboardFrame = value.cgRectValue
         let adjustmentHeight = (keyboardFrame.height + 20) * (show ? 1 : -1)
-        scrollView.contentInset.bottom += adjustmentHeight
-        scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
+        //scrollView.contentInset.bottom += adjustmentHeight
+        //scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
     }
     
     func keyboardWillShow(_ notification: NSNotification){
