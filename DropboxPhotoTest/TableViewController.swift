@@ -278,7 +278,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
             }
             // Finding the team name
             for (_, team) in teams {
-                let teamInfo = team as! [String : AnyObject]
+                let teamInfo = team
                 if teamInfo["number"] as! Int == scoutedTeamNums[(indexPath as NSIndexPath).row] as! Int {
                     teamName = ""
                     if teamInfo["name"] != nil{
@@ -404,7 +404,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                 number = scoutedTeamNums[((indexPath as NSIndexPath?)?.row)!] as! Int
                 // Finding the team name
                 for (_, team) in self.teams {
-                    let teamInfo = team as! [String : AnyObject]
+                    let teamInfo = team
                      var teamName = ""
                     if teamInfo["number"] as! Int == number {
                         if teamInfo["name"] != nil{
@@ -425,8 +425,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                 number = notScoutedTeamNums[((indexPath as NSIndexPath?)?.row)!] as! Int
                 // Finding the team name
                 for (_, team) in self.teams {
-                    let teamInfo = team as! [String : AnyObject]
-                    name = ""
+                    let teamInfo = team
                     if teamInfo["number"] as! Int == number {
                         if teamInfo["name"] != nil{
                             name = teamInfo["name"] as! String
