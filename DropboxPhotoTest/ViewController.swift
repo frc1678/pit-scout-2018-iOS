@@ -132,6 +132,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.selectedImageName.neededType = .string
             
             //Segmented Control
+            let climberType = PSUISegmentedViewController()
+            climberType.setup("Climber Type:", firebaseRef:
+                self.ourTeam.child("pitClimberType"), initialValue: snap.childSnapshot(forPath: "pitClimberType").value)
+            climberType.segments = ["Assisted Lift", "Active Lift", "Climb", "No Climber"]
+            climberType.neededType = .string
+            
+            //Segmented Control
             let programmingLanguage = PSUISegmentedViewController()
             programmingLanguage.setup("Programming Language:", firebaseRef: self.ourTeam.child("pitProgrammingLanguage"), initialValue: snap.childSnapshot(forPath: "pitProgrammingLanguage").value)
             programmingLanguage.segments = ["Java", "C++", "Labview", "Other"]
@@ -148,18 +155,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             availableWeight.setup("Available Weight:", firebaseRef: self.ourTeam.child("pitAvailableWeight"), initialValue: snap.childSnapshot(forPath: "pitAvailableWeight").value)
             availableWeight.neededType = .int
             
+            // Text Field
+            let maxHeight = PSUITextInputViewController()
+            maxHeight.setup("Max Height:", firebaseRef: self.ourTeam.child("pitMaxHeight"), initialValue: snap.childSnapshot(forPath: "pitMaxHeight").value)
+            maxHeight.neededType = .int
+            
             // Switch
             let willCheesecake = PSUISwitchViewController()
             willCheesecake.setup("Will Cheesecake", firebaseRef: self.ourTeam.child("pitDidDemonstrateCheesecakePotential"), initialValue: snap.childSnapshot(forPath: "pitDidDemonstrateCheesecakePotential").value)
-    
+            
             // SEALS Textfield
             let SEALSNotes = PSUITextInputViewController()
             SEALSNotes.setup("SEALS Notes:", firebaseRef: self.ourTeam.child("SEALSNotes"), initialValue: snap.childSnapshot(forPath: "SEALSNotes   ").value)
             
             self.addChildViewController(self.selectedImageName)
             self.addChildViewController(programmingLanguage)
+            self.addChildViewController(climberType)
             self.addChildViewController(driveTrain)
             self.addChildViewController(availableWeight)
+            self.addChildViewController(maxHeight)
             self.addChildViewController(willCheesecake)
             self.addChildViewController(SEALSNotes)
             
