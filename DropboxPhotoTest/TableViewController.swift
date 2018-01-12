@@ -287,7 +287,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                         teamName = "Offseason Bot"
                     }
                     let imageURLs = teamInfo["pitAllImageURLs"] as? [String: AnyObject] ?? [String: AnyObject]()
-                    let imageKeys = teamInfo["imageKeys"] as? [String: AnyObject] ?? [String: AnyObject]()
+                    let imageKeys = teamInfo["pitImageKeys"] as? [String: AnyObject] ?? [String: AnyObject]()
                     if imageURLs.count != imageKeys.count {
                         // 255, 102, 102
                         cell.backgroundColor = UIColor(red: 255/255, green: 153/255, blue: 153/255, alpha: 1.0)
@@ -324,7 +324,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                         teamName = "Offseason Bot"
                     }
                     let imageURLs = teamInfo["pitAllImageURLs"] as? [String: AnyObject] ?? [String: AnyObject]()
-                    let imageKeys = teamInfo["imageKeys"] as? [String: AnyObject] ?? [String: AnyObject]()
+                    let imageKeys = teamInfo["pitImageKeys"] as? [String: AnyObject] ?? [String: AnyObject]()
                     if imageURLs.count != imageKeys.count {
                         // 255, 102, 102
                         cell.backgroundColor = UIColor(red: 255/255, green: 153/255, blue: 153/255, alpha: 1.0)
