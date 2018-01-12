@@ -27,12 +27,12 @@ class PhotoManager : NSObject {
     var numberOfPhotosForTeam = [Int: Int]()
     var currentlyNotifyingTeamNumber = 0
     let photoSaver = CustomPhotoAlbum()
-    let firebaseImageDownloadURLBeginning = "https://firebasestorage.googleapis.com/v0/b/firebase-scouting-2017-5f51c.appspot.com/o/"
+    let firebaseImageDownloadURLBeginning = "https://firebasestorage.googleapis.com/v0/b/scouting-2018-9023a.appspot.com/o/"
     let firebaseImageDownloadURLEnd = "?alt=media"
     // teamsList is a cache of keys used to find photos from the imageCache which will then be uploaded to firebase
     var teamsList = Shared.dataCache
     let imageCache = Shared.imageCache
-    let firebaseStorageRef = Storage.storage().reference(forURL: "gs://scouting-2017-5f51c.appspot.com")
+    let firebaseStorageRef = Storage.storage().reference(forURL: "gs://scouting-2018-9023a.appspot.com")
     var teamKeys : [String]?
     var keyIndex : Int = 0
     var backgroundQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
