@@ -194,7 +194,7 @@ class PhotoManager : NSObject {
                             self.backgroundQueue.async {
                                 // Loops back through keysArray, removing any keys that do not fetch an image
                                 keysArray.remove(at: self.keyIndex)
-                                self.removeFromFirebase(dataToRemove: keysArray[self.keyIndex], teamNum: teamNum, keyToRemove: "imageKeys")
+                                self.removeFromFirebase(dataToRemove: keysArray[self.keyIndex], teamNum: teamNum, keyToRemove: "pitImageKeys")
                                 self.keyIndex += 1
                                 self.photoManagerSleep(time: 60)
                                 self.getNext(done: { (image, key, number, date) in
@@ -239,7 +239,7 @@ class PhotoManager : NSObject {
     func removeFromFirebase(dataToRemove: Any, teamNum: Int, keyToRemove: String) {
         teamsFirebase.child(String(teamNum)).observeSingleEvent(of: .value, with: { (snap) in
             var dataToChange = snap.childSnapshot(forPath: keyToRemove)
-            if keyToRemove == "imageKeys" || keyToRemove == "pitAllImageURLs"{
+            if keyToRemove == "pitImageKeys" || keyToRemove == "pitAllImageURLs"{
                 //dataToChange is a dictionary of arrays [[randomnKey: value], [randomnKey: value]]
             } else {
                 //dataToChange is an dictionary of [keyToRemove: value]
@@ -265,7 +265,7 @@ class PhotoManager : NSObject {
             let data = NSKeyedArchiver.archivedData(withRootObject: keysArray)
             self.teamsList.set(value: data, key: "teams")
         })
-        let currentImageKeys = teamsFirebase.child("\(number)").child("imageKeys")
+        let currentImageKeys = teamsFirebase.child("\(number)").child("pitImageKeys")
         currentImageKeys.childByAutoId().setValue(key)
     }
     
