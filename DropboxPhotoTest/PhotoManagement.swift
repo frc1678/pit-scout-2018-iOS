@@ -186,7 +186,7 @@ class PhotoManager : NSObject {
                         let nextKey = String(keysArray[self.keyIndex])
                         let nextKeyArray = nextKey.components(separatedBy: "_")
                         teamNum = Int(nextKeyArray[0])!
-                        date = nextKeyArray[1] as! String
+                        date = nextKeyArray[1]
                         self.imageCache.fetch(key: nextKey).onSuccess({ (image) in
                             nextPhoto = image
                             done(nextPhoto, nextKey, teamNum, date)
