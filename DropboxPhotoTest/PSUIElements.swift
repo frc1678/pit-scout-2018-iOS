@@ -12,7 +12,7 @@ import Firebase
 
 /// PSUI (Pit Scout User Interface) elements will subclass from this. These Elements will handle the updating of their content on firebase when the user changes the UI, they will also handle keeping themselves up to date with changes on Firebase.
 class PSUIFirebaseViewController : UIViewController {
-    let red = UIColor(colorLiteralRed: 243/255, green: 32/255, blue: 5/255, alpha: 1)
+    let red = UIColor(red: 243/255, green: 32/255, blue: 5/255, alpha: 1)
     var initialValue : Any?
     var titleText = ""
     var neededType : NeededType? {
@@ -110,7 +110,7 @@ class PSUIFirebaseViewController : UIViewController {
         textField.inputAccessoryView = keyboardToolbar
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }
@@ -212,8 +212,8 @@ class PSUISegmentedViewController : PSUIFirebaseViewController {
 }
 
 class PSUIButton : UIButton {
-    let white = UIColor(colorLiteralRed: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-    let green = UIColor(colorLiteralRed: 119/255, green: 218/255, blue: 72/255, alpha: 1.0)
+    let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+    let green = UIColor(red: 119/255, green: 218/255, blue: 72/255, alpha: 1.0)
     var press : (_ sender : UIButton)->() = {_ in } //This is an empty function of the type (sender : UIButton)->().
     convenience init(title : String, width : Int, y: Int, buttonPressed : @escaping (_ sender : UIButton)->()) {
         // Starts 80 from the left side to give a button buffer
@@ -236,7 +236,7 @@ class PSUIButton : UIButton {
         self.setNeedsLayout()
     }
     
-    func buttonPressed(_ button : UIButton) {
+    @objc func buttonPressed(_ button : UIButton) {
         // layer.backgroundColor = UIColor.green.cgColor
         self.press(button)
     }
