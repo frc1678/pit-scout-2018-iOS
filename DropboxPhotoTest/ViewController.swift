@@ -235,7 +235,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
      This function allows access to the photo library if button is long pressed.
      */
     // Long press to access photo library, not camera
-    func didLongPressImageButton(_ recognizer: UIGestureRecognizer) {
+    @objc func didLongPressImageButton(_ recognizer: UIGestureRecognizer) {
         notActuallyLeavingViewController = true
         if recognizer.state == UIGestureRecognizerState.ended {
             let picker = UIImagePickerController()
@@ -392,10 +392,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
     }
     
-    func keyboardWillShow(_ notification: NSNotification){
+    @objc func keyboardWillShow(_ notification: NSNotification){
         adjustInsetForKeyboardShow(true, notification: notification)
     }
-    func keyboardWillHide(_ notification: NSNotification){
+    @objc func keyboardWillHide(_ notification: NSNotification){
         adjustInsetForKeyboardShow(true, notification: notification)
     }
     
@@ -457,7 +457,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         })
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     

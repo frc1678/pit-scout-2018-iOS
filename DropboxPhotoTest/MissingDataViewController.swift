@@ -51,7 +51,7 @@ class MissingDataViewController : UIViewController {
     
     func updateWithText(_ text : String, color: UIColor) {
         let currentText : NSMutableAttributedString = NSMutableAttributedString(attributedString: self.mdTextView.attributedText)
-        currentText.append(NSMutableAttributedString(string: text, attributes: [NSForegroundColorAttributeName: color]))
+        currentText.append(NSMutableAttributedString(string: text, attributes: [NSAttributedStringKey.foregroundColor: color]))
         self.mdTextView.attributedText = currentText
         mdTextView.bounds.size.height = mdTextView.contentSize.height + 100
         self.preferredContentSize.height = mdTextView.bounds.size.height
