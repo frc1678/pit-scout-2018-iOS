@@ -70,7 +70,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         NotificationCenter.default.addObserver(self, selector: #selector(TableViewController.updateTitle(_:)), name: NSNotification.Name(rawValue: "titleUpdated"), object: nil)
     }
     
-    func updateTitle(_ note : Notification) {
+    @objc func updateTitle(_ note : Notification) {
         DispatchQueue.main.async { () -> Void in
             self.title = note.object as? String
         }
@@ -313,7 +313,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
             }
             // Finding the team name
             for (_, team) in teams {
-                let teamInfo = team as! NSDictionary
+                let teamInfo = team as NSDictionary
                 let teamNum = teamInfo["number"] as! Int
                 if teamNum == notScoutedTeamNums[(indexPath as NSIndexPath).row] as! Int {
                     //Offseason bots don't have team names (8671, 9971)
@@ -353,7 +353,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         return cell
     }
     
-    func didLongPress(_ recognizer: UIGestureRecognizer) {
+    @objc func didLongPress(_ recognizer: UIGestureRecognizer) {
         if recognizer.state == UIGestureRecognizerState.ended {
             let longPressLocation = recognizer.location(in: self.tableView)
             if let longPressedIndexPath = tableView.indexPathForRow(at: longPressLocation) {
