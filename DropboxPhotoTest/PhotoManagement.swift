@@ -184,12 +184,12 @@ class PhotoManager : NSObject {
                     if keysArray.count > self.keyIndex {
                         print("KEYSARRAY: \(keysArray)")
                         let nextKey = String(keysArray[self.keyIndex])
-                        let nextKeyArray = nextKey!.components(separatedBy: "_")
+                        let nextKeyArray = nextKey.components(separatedBy: "_")
                         teamNum = Int(nextKeyArray[0])!
-                        date = String(nextKeyArray[1])!
-                        self.imageCache.fetch(key: nextKey!).onSuccess({ (image) in
+                        date = nextKeyArray[1]
+                        self.imageCache.fetch(key: nextKey).onSuccess({ (image) in
                             nextPhoto = image
-                            done(nextPhoto, nextKey!, teamNum, date)
+                            done(nextPhoto, nextKey, teamNum, date)
                         }).onFailure({ Void in
                             self.backgroundQueue.async {
                                 // Loops back through keysArray, removing any keys that do not fetch an image
