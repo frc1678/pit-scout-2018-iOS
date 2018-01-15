@@ -165,8 +165,8 @@ class PhotoManager : NSObject {
      }
      
      func removeFromCache(dataArray: []){
-     let keysData = NSKeyedArchiver.archivedData(withRootObject: dataArray)
-     self.teamsList.set(value: keysData, key: "teams")
+        let keysData = NSKeyedArchiver.archivedData(withRootObject: dataArray)
+        self.teamsList.set(value: keysData, key: "teams")
      }
      */
     /**
@@ -233,8 +233,8 @@ class PhotoManager : NSObject {
         })
     }
     
-    /**
-     This function removes something from firebase.
+    /*
+        This function removes something from firebase.
      */
     func removeFromFirebase(dataToRemove: Any, teamNum: Int, keyToRemove: String) {
         teamsFirebase.child(String(teamNum)).observeSingleEvent(of: .value, with: { (snap) in

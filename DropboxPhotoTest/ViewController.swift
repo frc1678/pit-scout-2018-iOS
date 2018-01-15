@@ -427,20 +427,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillDisappear(_ animated: Bool) {
         /*
          //If you are leaving the view controller, and only have one image, make that the selected one.
-         super.viewWillDisappear(animated)
-         self.photoManager.getSharedURLsForTeam(self.number) { (urls) -> () in
-         if urls?.count == 1 {
-         self.ourTeam.observeSingleEvent(of: .value, with: { (snap) -> Void in
-         let pitImageKeys = snap.childSnapshot(forPath: "pitImageKeys").value as! NSDictionary
-         for value in pitImageKeys.allValues {
-         var modifiedURL = urls![0] as! String
-         modifiedURL = modifiedURL.replacingOccurrences(of: "%20", with: " ").replacingOccurrences(of: "%2B", with: "+")
-         if modifiedURL.contains(value as! String) {
-         self.pitSelectedImageName.set(value as AnyObject)
-         }
-         }
-         })
-         }
+        super.viewWillDisappear(animated)
+        self.photoManager.getSharedURLsForTeam(self.number) { (urls) -> () in
+            if urls?.count == 1 {
+                self.ourTeam.observeSingleEvent(of: .value, with: { (snap) -> Void in
+                    let pitImageKeys = snap.childSnapshot(forPath: "pitImageKeys").value as! NSDictionary
+                    for value in pitImageKeys.allValues {
+                        var modifiedURL = urls![0] as! String
+                        modifiedURL = modifiedURL.replacingOccurrences(of: "%20", with: " ").replacingOccurrences(of: "%2B", with: "+")
+                        if modifiedURL.contains(value as! String) {
+                            self.pitSelectedImageName.set(value as AnyObject)
+                        }
+                    }
+                })
+            }
          } */
         
         self.ourTeam.observeSingleEvent(of: .value, with: { (snap) -> Void in
