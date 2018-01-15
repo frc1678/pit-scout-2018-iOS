@@ -165,6 +165,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let pitWillCheesecake = PSUISwitchViewController()
             pitWillCheesecake.setup("Will Cheesecake", firebaseRef: self.ourTeam.child("pitDidDemonstrateCheesecakePotential"), initialValue: snap.childSnapshot(forPath: "pitDidDemonstrateCheesecakePotential").value)
             
+            // Text Field
+            let pitAutoRunTime = PSUITextInputViewController()
+            pitAutoRunTime.setup("Auto Time:", firebaseRef: self.ourTeam.child("pitAutoRunTime"), initialValue: snap.childSnapshot(forPath: "pitAutoRunTime").value)
+            pitAutoRunTime.neededType = .int
+            
             // SEALS Textfield
             let pitSEALsNotes = PSUITextInputViewController()
             pitSEALsNotes.setup("SEALS Notes:", firebaseRef: self.ourTeam.child("pitSEALsNotes"), initialValue: snap.childSnapshot(forPath: "pitSEALsNotes").value)
@@ -175,8 +180,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.addChildViewController(pitDriveTrain)
             self.addChildViewController(pitAvailableWeight)
             self.addChildViewController(pitMaxHeight)
+            self.addChildViewController(pitAutoRunTime)
             self.addChildViewController(pitWillCheesecake)
             self.addChildViewController(pitSEALsNotes)
+            
             
             // UI Elements
             for childViewController in self.childViewControllers {
