@@ -99,7 +99,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                 print("No Num")
             }
         }
-
+        
         self.scoutedTeamInfo.sort { (team1, team2) -> Bool in
             if team1["num"]! < team2["num"]! {
                 return true
@@ -144,7 +144,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         })
     }
     func updateTeams() {
-         print("Updating teams")
+        print("Updating teams")
         self.cache.fetch(key: "scoutedTeamInfo").onSuccess({ [unowned self] (data) -> () in
             let cacheScoutedTeamInfo = NSKeyedUnarchiver.unarchiveObject(with: data) as! [[String: Int]]
             var cacheTeams: [Int] = []
@@ -220,15 +220,15 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         alertController.addTextField { (textField) in
             textField.placeholder = "Enter Team Name"
             
-        
-        //adding the action to dialogbox2
-        alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-        
-        //finally presenting the dialog box
-        
-        self.present(alertController, animated: true, completion: nil)
-        
+            
+            //adding the action to dialogbox2
+            alertController.addAction(confirmAction)
+            alertController.addAction(cancelAction)
+            
+            //finally presenting the dialog box
+            
+            self.present(alertController, animated: true, completion: nil)
+            
         }
     }
     
@@ -287,8 +287,8 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                         teamName = "Offseason Bot"
                     }
                     let imageURLs = teamInfo["pitAllImageURLs"] as? [String: AnyObject] ?? [String: AnyObject]()
-                    let imageKeys = teamInfo["imageKeys"] as? [String: AnyObject] ?? [String: AnyObject]()
-                    if imageURLs.count != imageKeys.count {
+                    let pitImageKeys = teamInfo["pitImageKeys"] as? [String: AnyObject] ?? [String: AnyObject]()
+                    if imageURLs.count != pitImageKeys.count {
                         // 255, 102, 102
                         cell.backgroundColor = UIColor(red: 255/255, green: 153/255, blue: 153/255, alpha: 1.0)
                         cell.textLabel!.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
@@ -297,7 +297,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                         cell.textLabel!.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
                     } else {
                         cell.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
-                        if imageURLs.count != 0 && imageURLs.count == imageKeys.count {
+                        if imageURLs.count != 0 && imageURLs.count == pitImageKeys.count {
                             cell.textLabel!.textColor = UIColor(red: 119/255, green: 218/255, blue: 72/255, alpha: 1.0)
                         }
                     }
@@ -324,8 +324,8 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                         teamName = "Offseason Bot"
                     }
                     let imageURLs = teamInfo["pitAllImageURLs"] as? [String: AnyObject] ?? [String: AnyObject]()
-                    let imageKeys = teamInfo["imageKeys"] as? [String: AnyObject] ?? [String: AnyObject]()
-                    if imageURLs.count != imageKeys.count {
+                    let pitImageKeys = teamInfo["pitImageKeys"] as? [String: AnyObject] ?? [String: AnyObject]()
+                    if imageURLs.count != pitImageKeys.count {
                         // 255, 102, 102
                         cell.backgroundColor = UIColor(red: 255/255, green: 153/255, blue: 153/255, alpha: 1.0)
                         cell.textLabel!.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
@@ -334,7 +334,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                         cell.textLabel!.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
                     } else {
                         cell.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
-                        if imageURLs.count != 0 && imageURLs.count == imageKeys.count {
+                        if imageURLs.count != 0 && imageURLs.count == pitImageKeys.count {
                             cell.textLabel!.textColor = UIColor(red: 119/255, green: 218/255, blue: 72/255, alpha: 1.0)
                         }
                     }
@@ -342,7 +342,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
             }
             text = "\(notScoutedTeamNums[(indexPath as NSIndexPath).row]) - \(teamName)"
         }
-
+        
         cell.textLabel?.text = "\(text)"
         
         if((indexPath as NSIndexPath).section == 1) {
@@ -383,7 +383,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
             }
         }
     }
-        
+    
     // MARK:  UITableViewDelegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -405,7 +405,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                 // Finding the team name
                 for (_, team) in self.teams {
                     let teamInfo = team
-                     var teamName = ""
+                    var teamName = ""
                     if teamInfo["number"] as! Int == number {
                         if teamInfo["name"] != nil{
                             teamName = String(describing: teamInfo["name"]!)
@@ -483,3 +483,4 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         })
         
     }}
+
