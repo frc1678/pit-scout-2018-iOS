@@ -221,11 +221,11 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
             textField.placeholder = "Enter Team Name"
             
             
-            //adding the action to dialogbox2
+            //Adding the confirm and cancel action buttons to the alert
             alertController.addAction(confirmAction)
             alertController.addAction(cancelAction)
             
-            //finally presenting the dialog box
+            //finally presenting the dialogue box
             
             self.present(alertController, animated: true, completion: nil)
             
