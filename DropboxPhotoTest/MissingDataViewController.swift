@@ -20,7 +20,7 @@ class MissingDataViewController : UIViewController {
     
     let firebaseKeys = ["pitProgrammingLanguage", "pitAvailableWeight", "pitDriveTrain", "pitDidDemonstrateCheesecakePotential", "pitMaxHeight", "pitClimberType"]
     
-    let ignoreKeys = ["imageKeys", "pitAllImageURLs"]
+    let ignoreKeys = ["pitImageKeys", "pitAllImageURLs"]
     
     override func viewWillAppear(_ animated: Bool) {
         mdTextView.bounds.size.height = mdTextView.contentSize.height + 100
@@ -60,7 +60,7 @@ class MissingDataViewController : UIViewController {
     
     func adaptivePresentationStyleForPresentationController(
         _ controller: UIPresentationController!) -> UIModalPresentationStyle {
-            return .none
+        return .none
     }
     
     // used to show loading of missing data, come back to later
@@ -75,3 +75,4 @@ class MissingDataViewController : UIViewController {
         actInd.startAnimating()
     }
 }
+
