@@ -17,8 +17,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
     
     let cellReuseId = "teamCell"
     @IBAction func addTeam(_ sender: UIButton) {
-        showInputDialog()
-        //sleep(10)
+        newTeamFeature()
         addATeam()
     }
     
@@ -198,7 +197,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         return 2 //One section is for checked cells, the other unchecked
     }
     
-    func showInputDialog() {
+    func newTeamFeature() {
         //Creating UIAlertController and setting title and message for the alert dialog
         let alertController = UIAlertController(title: "Enter New Team", message: "Enter the team number and name", preferredStyle: .alert)
         
@@ -221,7 +220,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
             textField.placeholder = "Enter Team Name"
             
             
-            //Adding the confirm and cancel action buttons to the alert
+            //Adding the confirm and cancel action buttons to the add team button
             alertController.addAction(confirmAction)
             alertController.addAction(cancelAction)
             
