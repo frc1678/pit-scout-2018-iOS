@@ -7,34 +7,34 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>1058293089807-j56alf0etku60m2377b974rmk9kqat2m.apps.googleusercontent.com</string>
+	<string>591931891273-p4la7706m0hgbi4nmf4b7na29hbonjl2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1058293089807-j56alf0etku60m2377b974rmk9kqat2m</string>
+	<string>com.googleusercontent.apps.591931891273-p4la7706m0hgbi4nmf4b7na29hbonjl2</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCVfal0boG1pDlMzWrNjTOZoT6MRSGb1HQ</string>
+	<string>AIzaSyD9XPK6mJ3_BrgzrHKR5W9W_3tVGJFsrck</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1058293089807</string>
+	<string>591931891273</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.pit-scout-2018.ios</string>
+	<string>com.pit-scout-2017.ios2345678</string>
 	<key>PROJECT_ID</key>
-	<string>scouting-2018-9023a</string>
+	<string>scouting-2018-temp</string>
 	<key>STORAGE_BUCKET</key>
-	<string>scouting-2018-9023a.appspot.com</string>
+	<string>scouting-2018-temp.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1058293089807:ios:4a23dd166a666dcf</string>
+	<string>1:591931891273:ios:c2ac07d93fefd724</string>
 	<key>DATABASE_URL</key>
-	<string>https://scouting-2018-9023a.firebaseio.com</string>
+	<string>https://scouting-2018-temp.firebaseio.com</string>
 </dict>
 </plist>

@@ -49,7 +49,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.allowsSelection = false //You can select once we are done setting up the photo uploader object
-        firebaseStorageRef = Storage.storage().reference(forURL: "gs://scouting-2018-9023a.appspot.com")
+        firebaseStorageRef = Storage.storage().reference(forURL: "gs://scouting-2018-temp.appspot.com/m")
         // Get a reference to the storage service, using the default Firebase App
         // Create a storage reference from our storage service
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(TableViewController.didLongPress(_:)))
