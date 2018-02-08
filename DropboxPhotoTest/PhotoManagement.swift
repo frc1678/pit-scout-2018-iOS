@@ -282,7 +282,7 @@ class PhotoManager : NSObject {
         addImageKey(key: key, number: number)
         imageCache.set(value: image, key: key)
         // THIS LINE OF CODE WILL BE FOR CHAMPS
-        // teamsFirebase.child("\(number)").child("pitSelectedImageName").setValue(key)
+        // teamsFirebase.child("\(number)").child("pitSelectedImage").setValue(key)
     }
     
 }

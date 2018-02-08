@@ -32,7 +32,7 @@ class MissingDataViewController : UIViewController {
             for team in snap.children.allObjects {
                 let t = (team as! DataSnapshot).value as! [String: AnyObject]
                 if t["number"] != nil {
-                    if t["pitSelectedImageName"] == nil {
+                    if t["pitSelectedImage"] == nil {
                         self.updateWithText("\nTeam \(t["number"]!) has no selected image name.", color: UIColor.blue)
                     }
                     var dataNils : [String] = []

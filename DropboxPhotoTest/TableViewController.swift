@@ -11,7 +11,7 @@ import Firebase
 import FirebaseStorage
 import Haneke
 
-let firebaseKeys = ["pitNumberOfWheels",  "pitSelectedImageName"]
+let firebaseKeys = ["pitNumberOfWheels",  "pitSelectedImage"]
 
 class TableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     

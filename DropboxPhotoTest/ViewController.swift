@@ -27,7 +27,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var canViewPhotos : Bool = true //This is for that little time in between when the photo is taken and when it has been passed over to the uploader controller.
     var numberOfImagesOnFirebase = -1
     var notActuallyLeavingViewController = false
-    let pitSelectedImageName = PSUITextInputViewController()
+    let pitSelectedImage = PSUITextInputViewController()
     let teamsList = Shared.dataCache
     var deleteImagePhotoBrowser : Bool = false
     
@@ -128,8 +128,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.scrollView.addSubview(deleteImagesButton)
             
             // Text Field
-            self.pitSelectedImageName.setup("Selected Image:", firebaseRef: self.ourTeam.child("pitSelectedImageName"), initialValue: snap.childSnapshot(forPath: "pitSelectedImageName").value as? String)
-            self.pitSelectedImageName.neededType = .string
+            self.pitSelectedImage.setup("Selected Image:", firebaseRef: self.ourTeam.child("pitSelectedImage"), initialValue: snap.childSnapshot(forPath: "pitSelectedImage").value as? String)
+            self.pitSelectedImage.neededType = .string
             
             //Segmented Control
             let pitClimberType = PSUISegmentedViewController()
@@ -166,21 +166,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             pitCanCheesecake.setup("Can Cheesecake", firebaseRef: self.ourTeam.child("pitCanCheesecake"), initialValue: snap.childSnapshot(forPath: "pitCanCheesecake").value)
             
             // Text Field
+            /*
             let pitAutoRunTime = PSUITextInputViewController()
             pitAutoRunTime.setup("Auto Time:", firebaseRef: self.ourTeam.child("pitAutoRunTime"), initialValue: snap.childSnapshot(forPath: "pitAutoRunTime").value)
             pitAutoRunTime.neededType = .int
+            */
             
             // SEALS Textfield
             let pitSEALsNotes = PSUITextInputViewController()
             pitSEALsNotes.setup("SEALS Notes:", firebaseRef: self.ourTeam.child("pitSEALsNotes"), initialValue: snap.childSnapshot(forPath: "pitSEALsNotes").value)
             
-            self.addChildViewController(self.pitSelectedImageName)
+            self.addChildViewController(self.pitSelectedImage)
             self.addChildViewController(pitProgrammingLanguage)
             self.addChildViewController(pitClimberType)
             self.addChildViewController(pitDriveTrain)
             self.addChildViewController(pitAvailableWeight)
             self.addChildViewController(pitMaxHeight)
-            self.addChildViewController(pitAutoRunTime)
+            //self.addChildViewController(pitAutoRunTime)
             self.addChildViewController(pitCanCheesecake)
             self.addChildViewController(pitSEALsNotes)
             
@@ -313,8 +315,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                         //MAY FIX
                         if photoBrowser.photo(at: index).caption?() != nil {
                             if key as! String == photoBrowser.photo(at: index).caption!() {
-                                self.pitSelectedImageName.set(key as! String)
-                                self.ourTeam.child("pitSelectedImageName").setValue(key as! String)
+                                self.pitSelectedImage.set(key as! String)
+                                self.ourTeam.child("pitSelectedImage").setValue(key as! String)
                             }
                         }
                     }
@@ -330,10 +332,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             // Removing photo from image cache
                             self.photoManager.imageCache.remove(key: date as! String)
                             self.ourTeam.child("pitImageKeys").child(key as! String).removeValue()
-                            let currentSelectedImageName = snap.childSnapshot(forPath: "pitSelectedImageName").value as? String
+                            let currentSelectedImageName = snap.childSnapshot(forPath: "pitSelectedImage").value as? String
                             // If deleted image is also selected image, delete key value on firebase
                             if currentSelectedImageName == date as? String {
-                                self.ourTeam.child("pitSelectedImageName").removeValue()
+                                self.ourTeam.child("pitSelectedImage").removeValue()
                             }
                             // Deletes image URL from pitAllImageURLs
                             let imageURLDictionary = snap.childSnapshot(forPath: "pitAllImageURLs").value as? [String: String]
@@ -443,7 +445,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                         var modifiedURL = urls![0] as! String
                         modifiedURL = modifiedURL.replacingOccurrences(of: "%20", with: " ").replacingOccurrences(of: "%2B", with: "+")
                         if modifiedURL.contains(value as! String) {
-                            self.pitSelectedImageName.set(value as AnyObject)
+                            self.pitSelectedImage.set(value as AnyObject)
                         }
                     }
                 })
@@ -458,7 +460,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let pitImageKeys = snap.childSnapshot(forPath: "pitImageKeys").value as? [String]
             if pitImageKeys != nil {
                 if pitImageKeys!.count == 1 {
-                    self.ourTeam.child("pitSelectedImageName").setValue(pitImageKeys![0])
+                    self.ourTeam.child("pitSelectedImage").setValue(pitImageKeys![0])
                 }
             }
         })
