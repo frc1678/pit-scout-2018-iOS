@@ -162,8 +162,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             pitMaxHeight.neededType = .int
             
             // Switch
-            let pitWillCheesecake = PSUISwitchViewController()
-            pitWillCheesecake.setup("Will Cheesecake", firebaseRef: self.ourTeam.child("pitDidDemonstrateCheesecakePotential"), initialValue: snap.childSnapshot(forPath: "pitDidDemonstrateCheesecakePotential").value)
+            let pitCanCheesecake = PSUISwitchViewController()
+            pitCanCheesecake.setup("Can Cheesecake", firebaseRef: self.ourTeam.child("pitCanCheesecake"), initialValue: snap.childSnapshot(forPath: "pitCanCheesecake").value)
             
             // Text Field
             let pitAutoRunTime = PSUITextInputViewController()
@@ -181,7 +181,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.addChildViewController(pitAvailableWeight)
             self.addChildViewController(pitMaxHeight)
             self.addChildViewController(pitAutoRunTime)
-            self.addChildViewController(pitWillCheesecake)
+            self.addChildViewController(pitCanCheesecake)
             self.addChildViewController(pitSEALsNotes)
             
             
@@ -452,8 +452,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.ourTeam.observeSingleEvent(of: .value, with: { (snap) -> Void in
             //If cheescake not selected, automatically make it false
-            if snap.childSnapshot(forPath: "pitDidDemonstrateCheesecakePotential").value as? Bool == nil {
-                self.ourTeam.child("pitDidDemonstrateCheesecakePotential").setValue(false)
+            if snap.childSnapshot(forPath: "pitCanCheesecake").value as? Bool == nil {
+                self.ourTeam.child("pitCanCheesecake").setValue(false)
             }
             let pitImageKeys = snap.childSnapshot(forPath: "pitImageKeys").value as? [String]
             if pitImageKeys != nil {
