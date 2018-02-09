@@ -351,7 +351,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                                 // Deleting from the keys cache
                                 self.photoManager.backgroundQueue.async {
                                     var keysArray = NSKeyedUnarchiver.unarchiveObject(with: keysData) as! NSArray as! [String]
-                                    for i in 0..<keysArray.count-1 {
+                                    for i in 0..<keysArray.count {
                                         if keysArray[i] == caption {
                                             keysArray.remove(at: i)
                                         }
