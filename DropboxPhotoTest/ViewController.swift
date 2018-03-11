@@ -87,6 +87,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         
+<<<<<<< HEAD
+        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: scrollPositionBeforeScrollingToTextField), animated: true)
+        
+        self.ourTeam.child("pitAllImageURLs").observe(.value, with: { (snap) -> Void in
+            self.numberOfImagesOnFirebase = Int(snap.childrenCount)
+            self.updateMyPhotos({})
+        })
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+=======
+>>>>>>> origin/master
         teamsList.fetch(key: "teams").onSuccess({ (keysData) in
             let keysArray = NSKeyedUnarchiver.unarchiveObject(with: keysData) as? [String]
             if keysArray == nil {
