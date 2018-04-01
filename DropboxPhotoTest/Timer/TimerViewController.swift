@@ -121,47 +121,73 @@ class TimerViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return "\(m):\(s):\(ds)"
     }
     
-    func didSucceedAlert(dataKey: String) {
-        let successAlert = UIAlertController(title: "What was the treadmill distance travelled?", message: "", preferredStyle: .alert)
-        
-        successAlert.addTextField { (textField) in
-            textField.keyboardType = UIKeyboardType.decimalPad
-            textField.placeholder = "Enter treadmill distance (ft)"
-        }
-        
-        successAlert.addTextField { (textField) in
-            textField.keyboardType = UIKeyboardType.decimalPad
-            textField.placeholder = "Enter robot length (ft)"
-        }
-        
-        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
-            let distanceTravelled = (successAlert.textFields![0].text! as NSString).doubleValue
-            let robotLength = (successAlert.textFields![1].text! as NSString).doubleValue
+    func completedTrialAlert(dataKey: String) {
+        if dataKey == "pitDriveTimeOutcome" {
+            let driveTimerAlert = UIAlertController(title: "What was the treadmill distance travelled?", message: "", preferredStyle: .alert)
             
-            if distanceTravelled > Double(7.4) - robotLength {
-                self.didSucceed = true
-                self.outcomeArray.append(true)
-                self.ourTeam.observeSingleEvent(of: .value, with: { (snap) in
-                    self.writeArrayToFirebase(dataKey: dataKey, neededType: NeededType.Bool, value: self.didSucceed!, snap: snap)
-                })
-                self.viewDidLoad()
-                self.outcomeResultAlert(carpetDistance: distanceTravelled * 1.40 - robotLength * 1.40)
-            } else {
-                self.didSucceed = false
-                self.outcomeArray.append(false)
-                self.ourTeam.observeSingleEvent(of: .value, with: { (snap) in
-                    self.writeArrayToFirebase(dataKey: dataKey, neededType: NeededType.Bool, value: self.didSucceed!, snap: snap)
-                })
-                self.viewDidLoad()
-                self.outcomeResultAlert(carpetDistance: distanceTravelled * 1.40 - robotLength * 1.40)
+            driveTimerAlert.addTextField { (textField) in
+                textField.keyboardType = UIKeyboardType.decimalPad
+                textField.placeholder = "Enter treadmill distance (ft)"
             }
+            
+            driveTimerAlert.addTextField { (textField) in
+                textField.keyboardType = UIKeyboardType.decimalPad
+                textField.placeholder = "Enter robot length (ft)"
+            }
+            
+            let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+                
+                let distanceTravelled = (driveTimerAlert.textFields![0].text! as NSString).doubleValue
+                let robotLength = (driveTimerAlert.textFields![1].text! as NSString).doubleValue
+                
+                if distanceTravelled > Double(7.4) - robotLength {
+                    self.didSucceed = true
+                    self.outcomeArray.append(true)
+                    self.ourTeam.observeSingleEvent(of: .value, with: { (snap) in
+                        self.writeArrayToFirebase(dataKey: dataKey, neededType: NeededType.Bool, value: self.didSucceed!, snap: snap)
+                    })
+                    self.viewDidLoad()
+                    self.outcomeResultAlert(carpetDistance: distanceTravelled * 1.30 - robotLength * 1.30)
+                } else {
+                    self.didSucceed = false
+                    self.outcomeArray.append(false)
+                    self.ourTeam.observeSingleEvent(of: .value, with: { (snap) in
+                        self.writeArrayToFirebase(dataKey: dataKey, neededType: NeededType.Bool, value: self.didSucceed!, snap: snap)
+                    })
+                    self.viewDidLoad()
+                    self.outcomeResultAlert(carpetDistance: distanceTravelled * 1.30 - robotLength * 1.30)
+                }
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+            
+            driveTimerAlert.addAction(confirmAction)
+            driveTimerAlert.addAction(cancelAction)
+            self.present(driveTimerAlert, animated: true, completion: nil)
+        } else {
+            let rampTimerAlert = UIAlertController(title: "Did the robot succeed?", message: "", preferredStyle: .alert)
+            
+            let didSucceedAction = UIAlertAction(title: "True", style: .default, handler: nil)
+            let didFailAction = UIAlertAction(title: "False", style: .default, handler: nil)
+            
+            rampTimerAlert.addAction(didSucceedAction)
+            rampTimerAlert.addAction(didFailAction)
+            
+            let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+                if didSucceedAction.isEnabled == true {
+                    self.didSucceed = true
+                }
+                else {
+                    self.didSucceed = false
+                }
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+                
+            rampTimerAlert.addAction(confirmAction)
+            rampTimerAlert.addAction(cancelAction)
+            
+            
         }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-        
-        successAlert.addAction(confirmAction)
-        successAlert.addAction(cancelAction)
-        self.present(successAlert, animated: true, completion: nil)
     }
     
     func outcomeResultAlert(carpetDistance: Double) {
@@ -187,7 +213,7 @@ class TimerViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.writeArrayToFirebase(dataKey: self.timeDataKey!, neededType: NeededType.Float, value: driveTime, snap: snap)
             })
             clearTimer()
-            didSucceedAlert(dataKey: self.outcomeDataKey!)
+            completedTrialAlert(dataKey: self.outcomeDataKey!)
         } else if count == 00.00 {
              let inputAlert = UIAlertController(title: "User Input?", message: "Please time something before submitting", preferredStyle: .alert)
             inputAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))

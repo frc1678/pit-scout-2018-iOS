@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import IQKeyboardManager
+import Instabug
 import DropDown
 
 @UIApplicationMain

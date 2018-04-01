@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +24,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CC 2017 Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZFi-Yw-HFA">
-                                <rect key="frame" x="49" y="256" width="276" height="155"/>
+                                <rect key="frame" x="49" y="250.5" width="277" height="166"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ZFi-Yw-HFA" secondAttribute="height" multiplier="278:167" id="gme-4U-QL5"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Citrus Circuits" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZm-ZS-KOI">
                                 <rect key="frame" x="67" y="108" width="241" height="48"/>
@@ -31,10 +35,11 @@
                                 <color key="textColor" red="0.23170065879821777" green="0.83516466617584229" blue="0.17999434471130371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pit Scout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sfc-ZF-d5g">
-                                <rect key="frame" x="85" y="498" width="204" height="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pit Scout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kh3-5N-O9g">
+                                <rect key="frame" x="47" y="542" width="281" height="54"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="ib6-xN-Q8Q"/>
+                                    <constraint firstAttribute="height" constant="54" id="WLK-XH-h3K"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="281" id="luF-io-C8R"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" red="0.23170065879821777" green="0.83516466617584229" blue="0.17999434471130371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -45,13 +50,11 @@
                         <constraints>
                             <constraint firstItem="ZFi-Yw-HFA" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="6sv-hd-axQ"/>
                             <constraint firstItem="ZFi-Yw-HFA" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="33" id="KEP-3s-5f6"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Sfc-ZF-d5g" secondAttribute="bottom" constant="129" id="Mkf-Pq-VB7"/>
-                            <constraint firstItem="Sfc-ZF-d5g" firstAttribute="top" secondItem="ZFi-Yw-HFA" secondAttribute="bottom" constant="87" id="OM7-Rf-LCL"/>
+                            <constraint firstItem="ZFi-Yw-HFA" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Lev-mY-a3O"/>
                             <constraint firstItem="nZm-ZS-KOI" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="PVN-qw-jgw"/>
                             <constraint firstItem="nZm-ZS-KOI" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="88" id="dYW-JI-sFE"/>
-                            <constraint firstItem="Sfc-ZF-d5g" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="fFK-jO-cfQ"/>
-                            <constraint firstItem="ZFi-Yw-HFA" firstAttribute="centerX" secondItem="Sfc-ZF-d5g" secondAttribute="centerX" id="twm-1p-0bM"/>
-                            <constraint firstItem="Sfc-ZF-d5g" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="69" id="vy3-Ya-6Xb"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="kh3-5N-O9g" secondAttribute="bottom" constant="71" id="dvH-Mf-qWB"/>
+                            <constraint firstItem="kh3-5N-O9g" firstAttribute="centerX" secondItem="ZFi-Yw-HFA" secondAttribute="centerX" id="xsw-5k-l1g"/>
                         </constraints>
                     </view>
                 </viewController>

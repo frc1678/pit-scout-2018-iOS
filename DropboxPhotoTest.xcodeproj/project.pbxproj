@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		156672B5C9FB5D3721B1DCB6 /* Pods_DropboxPhotoTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 876601A21DB313C3E228220D /* Pods_DropboxPhotoTestTests.framework */; };
-		1909B1A11C9B9693004F5E7E /* MissingDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1909B1A01C9B9693004F5E7E /* MissingDataViewController.swift */; };
 		192BEAC21C3463B900992A8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192BEAC11C3463B900992A8A /* AppDelegate.swift */; };
 		192BEAC41C3463B900992A8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192BEAC31C3463B900992A8A /* ViewController.swift */; };
 		192BEAC71C3463B900992A8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 192BEAC51C3463B900992A8A /* Main.storyboard */; };
@@ -25,6 +24,7 @@
 		19A669821C51E9F80044D1F2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A669811C51E9F80044D1F2 /* SystemConfiguration.framework */; };
 		19E2FB371C4DB3D900BA4075 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E2FB361C4DB3D900BA4075 /* TableViewController.swift */; };
 		4264FA5D2055903B00DDABF1 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4264FA5C2055903B00DDABF1 /* FilterViewController.swift */; };
+		42AC4D3B206F322600B88F83 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AC4D3A206F322600B88F83 /* TabBarController.swift */; };
 		42C078C72034288B00809BDE /* CellTimerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C078C52034288B00809BDE /* CellTimerTableViewCell.swift */; };
 		42C078C82034288B00809BDE /* CellTimerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C078C62034288B00809BDE /* CellTimerTableViewCell.xib */; };
 		5B51D29B205DD76E00E26A9E /* CC 2017 Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B51D29A205DD76E00E26A9E /* CC 2017 Logo.png */; };
@@ -33,6 +33,14 @@
 		5B8F09171E3D424B00F4348E /* GoogleService-Info (1).plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B8F09141E3D424B00F4348E /* GoogleService-Info (1).plist */; };
 		98991CAC20262E460095A64C /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98991CAB20262E460095A64C /* TimerViewController.swift */; };
 		989A5E1820545BBB002C3DAD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 989A5E1720545BBB002C3DAD /* GoogleService-Info.plist */; };
+		989A5E1C205468E6002C3DAD /* (null) in Sources */ = {isa = PBXBuildFile; };
+		989A5E2320548B81002C3DAD /* (null) in Sources */ = {isa = PBXBuildFile; };
+		989A5E2420548B81002C3DAD /* (null) in Resources */ = {isa = PBXBuildFile; };
+		989A5E302055EDB7002C3DAD /* CellFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989A5E2E2055EDB7002C3DAD /* CellFilterTableViewCell.swift */; };
+		989A5E312055EDB7002C3DAD /* CellFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 989A5E2F2055EDB7002C3DAD /* CellFilterTableViewCell.xib */; };
+		98A384E9206C1E23002C2FBE /* MissingDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A384E8206C1E23002C2FBE /* MissingDataTableViewController.swift */; };
+		98A384ED206C1EDA002C2FBE /* MissingDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A384EB206C1EDA002C2FBE /* MissingDataTableViewCell.swift */; };
+		98A384EE206C1EDA002C2FBE /* MissingDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98A384EC206C1EDA002C2FBE /* MissingDataTableViewCell.xib */; };
 		D73B9A9BEA2434292D3AAAFA /* Pods_DropboxPhotoTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60F4DBA9586BBEB9548F737D /* Pods_DropboxPhotoTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +64,6 @@
 /* Begin PBXFileReference section */
 		04FACA4E617C85FC2F19391D /* Pods-DropboxPhotoTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DropboxPhotoTestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DropboxPhotoTestTests/Pods-DropboxPhotoTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		08F1A33DA12CF848D148D923 /* Pods-DropboxPhotoTestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DropboxPhotoTestTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DropboxPhotoTestTests/Pods-DropboxPhotoTestTests.release.xcconfig"; sourceTree = "<group>"; };
-		1909B1A01C9B9693004F5E7E /* MissingDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissingDataViewController.swift; sourceTree = "<group>"; };
 		190DBEC01C55988900C4D1C2 /* firebase_schema_2016_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = firebase_schema_2016_ios.framework; path = "Pods/../build/Debug-iphoneos/firebase_schema_2016_ios.framework"; sourceTree = "<group>"; };
 		190DBEC71C5598FC00C4D1C2 /* firebase_schema_2016_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = firebase_schema_2016_ios.framework; path = "Pods/../build/Debug-iphoneos/firebase_schema_2016_ios.framework"; sourceTree = "<group>"; };
 		190DBED01C5599B200C4D1C2 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
@@ -88,6 +95,7 @@
 		19CD3CF01C557F8300BB31A6 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = "Pods/../build/Debug-iphoneos/Firebase.framework"; sourceTree = "<group>"; };
 		19E2FB361C4DB3D900BA4075 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		4264FA5C2055903B00DDABF1 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		42AC4D3A206F322600B88F83 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		42C078C52034288B00809BDE /* CellTimerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTimerTableViewCell.swift; sourceTree = "<group>"; };
 		42C078C62034288B00809BDE /* CellTimerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellTimerTableViewCell.xib; sourceTree = "<group>"; };
 		5B51D29A205DD76E00E26A9E /* CC 2017 Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CC 2017 Logo.png"; sourceTree = "<group>"; };
@@ -98,6 +106,11 @@
 		8E886E65A7510F5F2D6D483C /* Pods-DropboxPhotoTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DropboxPhotoTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DropboxPhotoTest/Pods-DropboxPhotoTest.debug.xcconfig"; sourceTree = "<group>"; };
 		98991CAB20262E460095A64C /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		989A5E1720545BBB002C3DAD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		989A5E2E2055EDB7002C3DAD /* CellFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFilterTableViewCell.swift; sourceTree = "<group>"; };
+		989A5E2F2055EDB7002C3DAD /* CellFilterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellFilterTableViewCell.xib; sourceTree = "<group>"; };
+		98A384E8206C1E23002C2FBE /* MissingDataTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDataTableViewController.swift; sourceTree = "<group>"; };
+		98A384EB206C1EDA002C2FBE /* MissingDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDataTableViewCell.swift; sourceTree = "<group>"; };
+		98A384EC206C1EDA002C2FBE /* MissingDataTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MissingDataTableViewCell.xib; sourceTree = "<group>"; };
 		C33BC778FD1F162FA3A4694C /* Pods_DropboxPhotoTestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DropboxPhotoTestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -171,18 +184,19 @@
 				192BEAC51C3463B900992A8A /* Main.storyboard */,
 				192BEACA1C3463B900992A8A /* LaunchScreen.storyboard */,
 				192BEAC11C3463B900992A8A /* AppDelegate.swift */,
-				1909B1A01C9B9693004F5E7E /* MissingDataViewController.swift */,
+				42AC4D3A206F322600B88F83 /* TabBarController.swift */,
 				19E2FB361C4DB3D900BA4075 /* TableViewController.swift */,
 				192BEAC31C3463B900992A8A /* ViewController.swift */,
-				4264FA5C2055903B00DDABF1 /* FilterViewController.swift */,
+				98A384EA206C1E4D002C2FBE /* MissingData */,
+				429589A8206B5D7E003CE646 /* Filter */,
 				989A5E1720545BBB002C3DAD /* GoogleService-Info.plist */,
-				5B51D299205DD74600E26A9E /* Photos for launch Screen */,
 				4260EADD203A0A3500735530 /* Timer */,
 				19855CB41E130D83009E97B5 /* Reachability.swift */,
-				4260EADE203A0A8500735530 /* Photo */,
+				4260EADE203A0A8500735530 /* Photo Uploading */,
 				192BEACD1C3463B900992A8A /* Info.plist */,
 				192BEAC81C3463B900992A8A /* Assets.xcassets */,
 				19498EDF1CAE174600CF5236 /* DropboxPhotoTest-Bridging-Header.h */,
+				5B51D299205DD74600E26A9E /* Photos for launch Screen */,
 			);
 			path = DropboxPhotoTest;
 			sourceTree = "<group>";
@@ -238,13 +252,23 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
-		4260EADE203A0A8500735530 /* Photo */ = {
+		4260EADE203A0A8500735530 /* Photo Uploading */ = {
 			isa = PBXGroup;
 			children = (
 				19A2861F1C6916160039C0A4 /* PhotoManagement.swift */,
 				194587931C7D326D00507019 /* PhotoLibrarySaver.swift */,
 			);
-			path = Photo;
+			path = "Photo Uploading";
+			sourceTree = "<group>";
+		};
+		429589A8206B5D7E003CE646 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				4264FA5C2055903B00DDABF1 /* FilterViewController.swift */,
+				989A5E2E2055EDB7002C3DAD /* CellFilterTableViewCell.swift */,
+				989A5E2F2055EDB7002C3DAD /* CellFilterTableViewCell.xib */,
+			);
+			path = Filter;
 			sourceTree = "<group>";
 		};
 		5B51D299205DD74600E26A9E /* Photos for launch Screen */ = {
@@ -253,6 +277,16 @@
 				5B51D29A205DD76E00E26A9E /* CC 2017 Logo.png */,
 			);
 			path = "Photos for launch Screen";
+			sourceTree = "<group>";
+		};
+		98A384EA206C1E4D002C2FBE /* MissingData */ = {
+			isa = PBXGroup;
+			children = (
+				98A384E8206C1E23002C2FBE /* MissingDataTableViewController.swift */,
+				98A384EB206C1EDA002C2FBE /* MissingDataTableViewCell.swift */,
+				98A384EC206C1EDA002C2FBE /* MissingDataTableViewCell.xib */,
+			);
+			path = MissingData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,7 +409,10 @@
 				5B51D29B205DD76E00E26A9E /* CC 2017 Logo.png in Resources */,
 				42C078C82034288B00809BDE /* CellTimerTableViewCell.xib in Resources */,
 				5B8F09151E3D424B00F4348E /* GoogleService-Info (1).plist in Resources */,
+				989A5E312055EDB7002C3DAD /* CellFilterTableViewCell.xib in Resources */,
 				989A5E1820545BBB002C3DAD /* GoogleService-Info.plist in Resources */,
+				98A384EE206C1EDA002C2FBE /* MissingDataTableViewCell.xib in Resources */,
+				989A5E2420548B81002C3DAD /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,10 +581,15 @@
 			files = (
 				192BEAC41C3463B900992A8A /* ViewController.swift in Sources */,
 				98991CAC20262E460095A64C /* TimerViewController.swift in Sources */,
-				1909B1A11C9B9693004F5E7E /* MissingDataViewController.swift in Sources */,
+				989A5E1C205468E6002C3DAD /* (null) in Sources */,
+				42AC4D3B206F322600B88F83 /* TabBarController.swift in Sources */,
+				989A5E2320548B81002C3DAD /* (null) in Sources */,
 				19E2FB371C4DB3D900BA4075 /* TableViewController.swift in Sources */,
 				4264FA5D2055903B00DDABF1 /* FilterViewController.swift in Sources */,
 				194587941C7D326D00507019 /* PhotoLibrarySaver.swift in Sources */,
+				98A384E9206C1E23002C2FBE /* MissingDataTableViewController.swift in Sources */,
+				98A384ED206C1EDA002C2FBE /* MissingDataTableViewCell.swift in Sources */,
+				989A5E302055EDB7002C3DAD /* CellFilterTableViewCell.swift in Sources */,
 				19A286201C6916160039C0A4 /* PhotoManagement.swift in Sources */,
 				42C078C72034288B00809BDE /* CellTimerTableViewCell.swift in Sources */,
 				192BEAC21C3463B900992A8A /* AppDelegate.swift in Sources */,

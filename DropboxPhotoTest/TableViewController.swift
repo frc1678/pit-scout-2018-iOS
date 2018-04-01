@@ -21,11 +21,9 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
     let operationQueue = OperationQueue()
     var teamNums = [Int]()
     var timer = Timer()
-    var photoManager : PhotoManager?
     var urlsDict : [Int : NSMutableArray] = [Int: NSMutableArray]()
     let cache = Shared.dataCache
     var refHandle = DatabaseHandle()
-    var firebaseStorageRef : StorageReference?
     var teamNum : Int?
     var teamName : String?
     
@@ -33,10 +31,6 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         super.viewDidLoad()
         //You can select once we are done setting up the photo uploader object
         self.tableView.allowsSelection = false
-        
-        // Get a reference to the storage service, using the default Firebase App
-        // Create a storage reference from our storage service
-        firebaseStorageRef = Storage.storage().reference(forURL: "gs://scouting-2018-9023a.appspot.com/")
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(TableViewController.didLongPress(_:)))
         self.tableView.addGestureRecognizer(longPress)
@@ -46,9 +40,11 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         
         self.firebase = Database.database().reference()
         
-        setupphotoManager()
+        PhotoManager.sharedPhotoManagerInstance.getNext(done: { (nextImage, nextKey, nextNumber, nextDate) in
+            PhotoManager.sharedPhotoManagerInstance.startUploadingImageQueue(photo: nextImage, key: nextKey, teamNum: nextNumber, date: nextDate)
+        })
         
-        NotificationCenter.default.addObserver(self, selector: #selector(TableViewController.updateTitle(_:)), name: NSNotification.Name(rawValue: "titleUpdated"), object: nil)
+        self.tableView.allowsSelection = true
     }
     
     @objc func updateTitle(_ note : Notification) {
@@ -69,15 +65,6 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
             print("This should not happen. Someone didn't enter anything into the text field or addATeam is funking things up.")
         }
     }
-    
-    func takeSnapshot() {
-        self.firebase!.child("TeamsList").observe(.value, with: { (teamsListSnapshot) in
-            self.firebase!.observeSingleEvent(of: .value, with: { (teamSnapshot) in
-                self.setup(teamSnapshot.childSnapshot(forPath: "Teams"))
-            })
-        })
-    }
-    
     
     func setup(_ snap: DataSnapshot) {
         self.teams = NSMutableDictionary() as! [String : [String : AnyObject]]
@@ -115,7 +102,6 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
     }
     
     func updateTeams() {
-        print("Updating teams and cache")
         self.cache.fetch(key: "scoutedTeamInfo").onSuccess({ [unowned self] (data) -> () in
             let cacheScoutedTeamInfo = NSKeyedUnarchiver.unarchiveObject(with: data) as! [[String: Int]]
             var cacheTeams: [Int] = []
@@ -153,17 +139,6 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         })
     }
     
-    func setupphotoManager() {
-        
-        if self.photoManager == nil {
-            self.photoManager = PhotoManager(teamsFirebase: (self.firebase?.child("Teams"))!, teamNumbers: self.teamNums)
-            photoManager?.getNext(done: { (nextImage, nextKey, nextNumber, nextDate) in
-                self.photoManager?.startUploadingImageQueue(photo: nextImage, key: nextKey, teamNum: nextNumber, date: nextDate)
-            })
-        }
-        self.tableView.allowsSelection = true
-    }
-    
     // MARK:  UITextFieldDelegate Methods
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2 //One section is for checked cells, the other unchecked
@@ -195,10 +170,6 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
     
     func teamAdder(_ teamNum: Int, _ teamName: String) {
         if !self.teamNums.contains(self.teamNum!) {
-            firebase!.child("TeamsList").observeSingleEvent(of: .value, with: { (teamsListSnapshot) in
-                let teamsList = teamsListSnapshot.value as! [Int]
-                self.firebase!.child("TeamsList").child(String(teamsList.count)).setValue(teamNum)
-            })
             firebase!.child("Teams").child(String(teamNum)).child("name").setValue(teamName)
             firebase!.child("Teams").child(String(teamNum)).child("number").setValue(Int(teamNum))
         }
@@ -353,72 +324,66 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+    /*
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let barViewControllers = segue.destinationViewController as! UITabBarController
+        let nav = barViewControllers.viewControllers![2] as! UINavigationController
+        let destinationViewController = nav.topviewcontroller as ProfileController
+        destinationViewController.firstName = self.firstName
+        destinationViewController.lastName = self.lastName
+    }*/
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Team View Segue" {
-            var number = -1
-            var name = ""
-            let indexPath = self.tableView.indexPath(for: sender as! UITableViewCell)
-            if (indexPath! as NSIndexPath).section == 1 {
-                let scoutedTeamNums = NSMutableArray()
-                for team in self.scoutedTeamInfo {
-                    if team["hasBeenScouted"] == 1 {
-                        scoutedTeamNums.add(team["num"]!)
-                    }
+        var number = -1
+        var name = ""
+        let indexPath = self.tableView.indexPath(for: sender as! UITableViewCell)
+        if (indexPath! as NSIndexPath).section == 1 {
+            let scoutedTeamNums = NSMutableArray()
+            for team in self.scoutedTeamInfo {
+                if team["hasBeenScouted"] == 1 {
+                    scoutedTeamNums.add(team["num"]!)
                 }
-                number = scoutedTeamNums[((indexPath as NSIndexPath?)?.row)!] as! Int
-                // Finding the team name
-                for (_, team) in self.teams {
-                    let teamInfo = team 
-                    var teamName = ""
-                    if teamInfo["number"] as! Int == number {
-                        if teamInfo["name"] != nil{
-                            teamName = String(describing: teamInfo["name"]!)
-                        } else {
-                            teamName = "Offseason Bot"
-                        }
-                    }
-                }
-            } else if (indexPath! as NSIndexPath).section == 0 {
-                
-                let notScoutedTeamNums = NSMutableArray()
-                for team in self.scoutedTeamInfo {
-                    if team["hasBeenScouted"] == 0 {
-                        notScoutedTeamNums.add(team["num"]!)
-                    }
-                }
-                number = notScoutedTeamNums[((indexPath as NSIndexPath?)?.row)!] as! Int
-                // Finding the team name
-                for (_, team) in self.teams {
-                    let teamInfo = team 
-                    if teamInfo["number"] as! Int == number {
-                        if teamInfo["name"] != nil{
-                            name = teamInfo["name"] as! String
-                        } else {
-                            name = "Offseason Bot"
-                        }
+            }
+            number = scoutedTeamNums[((indexPath as NSIndexPath?)?.row)!] as! Int
+            // Finding the team name
+            for (_, team) in self.teams {
+                let teamInfo = team
+                var teamName = ""
+                if teamInfo["number"] as! Int == number {
+                    if teamInfo["name"] != nil{
+                        teamName = String(describing: teamInfo["name"]!)
+                    } else {
+                        teamName = "Offseason Bot"
                     }
                 }
             }
-            let teamViewController = segue.destination as! ViewController
+        } else if (indexPath! as NSIndexPath).section == 0 {
             
-            let teamFB = self.firebase!.child("Teams").child("\(number)")
-            teamViewController.ourTeam = teamFB
-            teamViewController.firebase = self.firebase!
-            teamViewController.number = number
-            teamViewController.title = "\(number) - \(name)"
-            teamViewController.photoManager = self.photoManager
-            teamViewController.firebaseStorageRef = self.firebaseStorageRef
-        } else if segue.identifier == "popoverSegue" {
-            let popoverViewController = segue.destination
-            popoverViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-            popoverViewController.popoverPresentationController!.delegate = self
-            if let missingDataViewController = segue.destination as? MissingDataViewController {
-                self.firebase!.child("Teams").observeSingleEvent(of: .value, with: { (snap) -> Void in
-                    missingDataViewController.snap = snap
-                })
+            let notScoutedTeamNums = NSMutableArray()
+            for team in self.scoutedTeamInfo {
+                if team["hasBeenScouted"] == 0 {
+                    notScoutedTeamNums.add(team["num"]!)
+                }
+            }
+            number = notScoutedTeamNums[((indexPath as NSIndexPath?)?.row)!] as! Int
+            // Finding the team name
+            for (_, team) in self.teams {
+                let teamInfo = team
+                if teamInfo["number"] as! Int == number {
+                    if teamInfo["name"] != nil{
+                        name = teamInfo["name"] as! String
+                    } else {
+                        name = "Offseason Bot"
+                    }
+                }
             }
         }
+        let teamViewController = segue.destination as! ViewController
+        
+        let teamFB = self.firebase!.child("Teams").child("\(number)")
+        teamViewController.ourTeam = teamFB
+        teamViewController.number = number
+        teamViewController.title = "\(number) - \(name)"
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -426,10 +391,9 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if self.photoManager != nil {
-            self.photoManager?.currentlyNotifyingTeamNumber = 0
-        }
-        takeSnapshot()
+        self.firebase!.child("Teams").observe(.value, with: { (teamSnapshot) in
+            self.setup(teamSnapshot)
+        })
     }
     
     @IBAction func myShareButton(sender: UIBarButtonItem) {

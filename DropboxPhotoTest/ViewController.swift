@@ -29,9 +29,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var driveTestSegControl: UISegmentedControl!
     @IBOutlet weak var driveTimerButton: UIButton!
     @IBOutlet weak var rampTimerButton: UIButton!
-    @IBOutlet weak var canCheesecakeSwitch: UISwitch!
     @IBOutlet weak var hasCameraSwitch: UISwitch!
-    @IBOutlet weak var robotDimensions: UITextField!
+    @IBOutlet weak var robotWidth: UITextField!
+    @IBOutlet weak var robotLength: UITextField!
     @IBOutlet weak var SEALsNotesTextView: UITextView!{ didSet { SEALsNotesTextView.delegate = self } }
     @IBAction func AutoTimerSegue(_ sender: UIButton) {
     }
@@ -44,12 +44,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var green = UIColor(red: 119/255, green: 218/255, blue: 72/255, alpha: 1.0)
     var red: UIColor =  UIColor(red: 244/255, green: 142/255, blue: 124/255, alpha: 1)
     var white: UIColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-    
-    
-    var photoManager : PhotoManager!
+
     var number : Int!
-    var firebase = Database.database().reference()
-    var firebaseStorageRef : StorageReference!
+    //var firebase = Database.database().reference()
+    var firebaseStorageRef = Storage.storage().reference(forURL: "gs://scouting-2018-9023a.appspot.com/")
     var ourTeam : DatabaseReference!
     var photos = [MWPhoto]()
     var canViewPhotos : Bool = true //This is for that little time in between when the photo is taken and when it has been passed over to the uploader controller.
@@ -57,7 +55,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var notActuallyLeavingViewController = false
     let teamsList = Shared.dataCache
     var deleteImagePhotoBrowser : Bool = false
-    let dataKeys: [[String: NeededType]] = [["pitSelectedImage": .String], ["pitAvailableWeight": .Int], ["pitDriveTrain": .String], ["pitCanCheesecake": .Bool], ["pitSEALsNotes": .String], ["pitProgrammingLanguage": .String], ["pitClimberType": .String], ["pitRobotDimensions": .String], ["pitDriveTime": .Float], ["pitDriveTest": .String], ["pitRampTime": .Float], ["pitDriveTimeOutcome": .Bool], ["pitRampTimeOutcome": .Bool], ["pitWheelDiameter": .String], ["pitHasCamera": .Bool]]
+    let dataKeys: [[String: NeededType]] = [["pitSelectedImage": .String], ["pitAvailableWeight": .Int], ["pitDriveTrain": .String], ["pitCanCheesecake": .Bool], ["pitSEALsNotes": .String], ["pitProgrammingLanguage": .String], ["pitClimberType": .String], ["pitRobotWidth": .Float], ["pitDriveTime": .Float], ["pitDriveTest": .String], ["pitRampTime": .Float], ["pitDriveTimeOutcome": .Bool], ["pitRampTimeOutcome": .Bool], ["pitWheelDiameter": .String], ["pitHasCamera": .Bool], ["pitRobotLength": .Float]]
     
     var activeField : UITextField? {
         didSet {
@@ -163,6 +161,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         })
         elementName.tag = dataKeyIndex
         elementName.addTarget(self, action: #selector(textFieldValueChanged(_:)), for: UIControlEvents.editingChanged)
+        elementName.addTarget(self, action: #selector(textFieldDidBeginEditing(_:)), for: UIControlEvents.editingDidBegin)
     }
     
     func setUpTextView(elementName: UITextView, dataKey: String, dataKeyIndex: Int, placeHolder: String) {
@@ -177,7 +176,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 elementName.text = String(describing: placeHolder)
             }
         })
-        
     }
     
     func setUpSegmentedControl(elementName: UISegmentedControl, dataKey: String, dataKeyIndex: Int) {
@@ -246,6 +244,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @objc func didNormalTapDeleteImage(_ sender: UIGestureRecognizer) {
         self.deleteImagePhotoBrowser = true
         setUpPhotoBrowser()
+    }
+    
+    @objc func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.text == "No current value" {
+            textField.text = ""
+        }
     }
     
     @objc func textFieldValueChanged(_ textField: UITextField) {
@@ -406,7 +410,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 for i in 0..<imageKeysArray!.count {
                     let imageKey = imageKeysArray![i]
                     // Use imageKey to find corresponding image in imageCache
-                    self.photoManager.imageCache.fetch(key: String(describing: imageKey)).onSuccess ({ (image) in
+                    PhotoManager.sharedPhotoManagerInstance.imageCache.fetch(key: String(describing: imageKey)).onSuccess ({ (image) in
                         let captionedImage = MWPhoto(image: image)
                         captionedImage!.caption = "\(String(describing: imageKey))"
                         self.photos.append(captionedImage!)
@@ -470,7 +474,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                         let date = imageKeys[i]
                         if date == caption {
                             // Removing photo from image cache
-                            self.photoManager.imageCache.remove(key: date)
+                            PhotoManager.sharedPhotoManagerInstance.imageCache.remove(key: date)
                             self.removeArrayFromFirebase(dataToRemove: date, keyToRemove: "pitImageKeys", snap: snap)
                             let currentSelectedImageName = snap.childSnapshot(forPath: "pitSelectedImage").value as? String
                             // If deleted image is also selected image, delete key value on firebase
@@ -490,7 +494,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             }
                             self.teamsList.fetch(key: "teams").onSuccess({ (keysData) in
                                 // Deleting from the keys cache
-                                self.photoManager.backgroundQueue.async {
+                                PhotoManager.sharedPhotoManagerInstance.backgroundQueue.async {
                                     var keysArray = NSKeyedUnarchiver.unarchiveObject(with: keysData) as! NSArray as! [String]
                                     //If there's anything in the cache, check to see if the image key exists. If it does, remove the image key from the cache
                                     if keysArray.count != 0{
@@ -531,8 +535,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         canViewPhotos = false
         picker.dismiss(animated: true, completion: nil)
         self.photos.append(MWPhoto(image: image))
-        photoManager.photoSaver.saveImage(image)
-        photoManager.addToFirebaseStorageQueue(image: image, number: number)
+        PhotoManager.sharedPhotoManagerInstance.addToFirebaseStorageQueue(image: image, number: number)
     }
     //You shold only have to call this once each time the app wakes up
     
@@ -586,7 +589,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.setUpTextField(elementName: selectedImageTextField, dataKey: "pitSelectedImage", dataKeyIndex: 0, neededType: NeededType.String)
         
-        self.setUpTextField(elementName: robotDimensions, dataKey: "pitRobotDimensions", dataKeyIndex: 7, neededType: NeededType.String)
+        self.setUpTextField(elementName: robotWidth, dataKey: "pitRobotWidth", dataKeyIndex: 7, neededType: NeededType.String)
+        
+        self.setUpTextField(elementName: robotLength, dataKey: "pitRobotLength", dataKeyIndex: 15, neededType: NeededType.String)
         
         self.setUpSegmentedControl(elementName: wheelDiameterSegControl, dataKey: "pitWheelDiameter", dataKeyIndex: 13)
         
@@ -598,9 +603,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.setUpSegmentedControl(elementName: climberTypeSegControl, dataKey: "pitClimberType", dataKeyIndex: 6)
         
-        self.setUpSwitch(elementName: canCheesecakeSwitch, dataKey: "pitCanCheesecake", dataKeyIndex: 3)
-        
-        self.setUpSwitch(elementName: hasCameraSwitch, dataKey: "pitHasCamera", dataKeyIndex: 13)
+        self.setUpSwitch(elementName: hasCameraSwitch, dataKey: "pitHasCamera", dataKeyIndex: 14)
         
         self.setUpTextView(elementName: SEALsNotesTextView, dataKey: "pitSEALsNotes", dataKeyIndex: 4, placeHolder: "Miscellaneous Notes: climber notes, possible autos, etc")
         SEALsNotesTextView.delegate = self

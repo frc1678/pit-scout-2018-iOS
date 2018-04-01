@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="filterCell" id="KGk-i7-Jjw" customClass="CellFilterTableViewCell" customModule="DropboxPhotoTest" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dataValue" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkr-z6-elJ">
+                        <rect key="frame" x="204.5" y="11.5" width="109.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="dataPoint" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Xu-yI-8AY">
+                        <rect key="frame" x="89" y="11" width="142" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="teamNum" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQ6-3K-4Ko">
+                        <rect key="frame" x="6" y="11.5" width="75" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="OQ6-3K-4Ko" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="6" id="2oZ-T8-PUG"/>
+                    <constraint firstItem="6Xu-yI-8AY" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="BGE-h9-VQJ"/>
+                    <constraint firstItem="Xkr-z6-elJ" firstAttribute="leading" secondItem="6Xu-yI-8AY" secondAttribute="trailing" constant="8" id="BeC-VA-Mg9"/>
+                    <constraint firstItem="OQ6-3K-4Ko" firstAttribute="centerY" secondItem="6Xu-yI-8AY" secondAttribute="centerY" id="OrG-D3-1lm"/>
+                    <constraint firstItem="Xkr-z6-elJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="b3A-i9-Ylu"/>
+                    <constraint firstAttribute="trailing" secondItem="Xkr-z6-elJ" secondAttribute="trailing" constant="6" id="pb7-tw-eEW"/>
+                    <constraint firstItem="6Xu-yI-8AY" firstAttribute="centerY" relation="lessThanOrEqual" secondItem="Xkr-z6-elJ" secondAttribute="centerY" id="tIE-OY-KJM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dataPoint" destination="6Xu-yI-8AY" id="SUq-oR-5sj"/>
+                <outlet property="dataValue" destination="Xkr-z6-elJ" id="NgB-fg-CTa"/>
+                <outlet property="teamNum" destination="OQ6-3K-4Ko" id="ECx-pg-r1y"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

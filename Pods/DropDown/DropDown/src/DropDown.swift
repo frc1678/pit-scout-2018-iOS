@@ -81,7 +81,7 @@ public final class DropDown: UIView {
 	//MARK: UI
 	fileprivate let dismissableView = UIView()
 	fileprivate let tableViewContainer = UIView()
-	fileprivate let tableView = UITableView()
+    fileprivate let tableView = UITableView()
 	fileprivate var templateCell: DropDownCell!
     fileprivate lazy var arrowIndication: UIImageView = {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 20, height: 10), false, 0)
