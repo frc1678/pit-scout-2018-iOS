@@ -27,8 +27,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var driveTrainSegControl: UISegmentedControl!
     @IBOutlet weak var climberTypeSegControl: UISegmentedControl!
     @IBOutlet weak var driveTestSegControl: UISegmentedControl!
-    @IBOutlet weak var driveTimerButton: UIButton!
-    @IBOutlet weak var rampTimerButton: UIButton!
+    //@IBOutlet weak var driveTimerButton: UIButton!
+    //@IBOutlet weak var rampTimerButton: UIButton!
     @IBOutlet weak var hasCameraSwitch: UISwitch!
     @IBOutlet weak var robotWidth: UITextField!
     @IBOutlet weak var robotLength: UITextField!
@@ -36,10 +36,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func AutoTimerSegue(_ sender: UIButton) {
     }
   
-    var driveTimeArray: [Float] = []
+    /*var driveTimeArray: [Float] = []
     var rampTimeArray: [Float] = []
     var driveOutcomeArray: [Bool] = []
-    var rampOutcomeArray: [Bool] = []
+    var rampOutcomeArray: [Bool] = []*/
    
     var green = UIColor(red: 119/255, green: 218/255, blue: 72/255, alpha: 1.0)
     var red: UIColor =  UIColor(red: 244/255, green: 142/255, blue: 124/255, alpha: 1)
@@ -94,7 +94,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         })
         
-        ourTeam.observeSingleEvent(of: .value) { (snapshot) in
+        /*ourTeam.observeSingleEvent(of: .value) { (snapshot) in
             for i in snapshot.childSnapshot(forPath: "pitDriveTime").children {
                 if let unwrapped = (i as! DataSnapshot).value as? Float {
                     self.driveTimeArray.append(unwrapped)
@@ -122,9 +122,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     self.rampTimeArray.remove(at: self.rampTimeArray.count-1)
                 }
             }
-        }
+        }*/
     }
-    
+ 
     enum NeededType {
         case Int
         case Float
@@ -581,8 +581,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let normalTapGestureDeleteImage = UITapGestureRecognizer(target: self, action: #selector(ViewController.didNormalTapDeleteImage(_:)))
         deleteImageButton.addGestureRecognizer(normalTapGestureDeleteImage)
         deleteImageButton.layer.cornerRadius = 5
-        driveTimerButton.layer.cornerRadius = 5
-        rampTimerButton.layer.cornerRadius = 5
+        //driveTimerButton.layer.cornerRadius = 5
+        //rampTimerButton.layer.cornerRadius = 5
         
         // Setting up all the other UI elements
         self.setUpTextField(elementName: availableWeightTextField, dataKey: "pitAvailableWeight", dataKeyIndex: 1, neededType: NeededType.Int)
@@ -614,7 +614,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewWillDisappear(animated)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "driveTimeSegue" {
             if let dest = segue.destination as? TimerViewController {
                 dest.ourTeam = self.ourTeam
@@ -635,7 +635,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         }
     }
-    
+    */
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
