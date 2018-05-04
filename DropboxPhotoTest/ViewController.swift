@@ -617,7 +617,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.setUpSwitch(elementName: canDoPIDOnDriveTrainSwitch, dataKey: "pitCanDoPIDOnDriveTrain", dataKeyIndex: 16)
         
-        self.setUpSwitch(elementName: hasGyroSwitch, dataKey: "pitHatGyro", dataKeyIndex: 17)
+        self.setUpSwitch(elementName: hasGyroSwitch, dataKey: "pitHasGyro", dataKeyIndex: 17)
         
         self.setUpSwitch(elementName: hasEncodersOnBothSidesSwitch, dataKey: "pitHasEncodersOnBothSides", dataKeyIndex: 18)
         

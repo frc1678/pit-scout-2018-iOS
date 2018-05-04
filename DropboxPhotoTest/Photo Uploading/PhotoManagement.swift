@@ -85,10 +85,12 @@ class PhotoManager : NSObject {
                         })
                     })
                 } else {
-                    self.photoManagerSleep(time: 60)
-                    self.getNext(done: { (image, key, number, date) in
-                        self.startUploadingImageQueue(photo: image, key: key, teamNum: number, date: date)
-                    })
+                    self.backgroundQueue.async {
+                        self.photoManagerSleep(time: 60)
+                        self.getNext(done: { (image, key, number, date) in
+                            self.startUploadingImageQueue(photo: image, key: key, teamNum: number, date: date)
+                        })
+                    }
                 }
             })
         }
@@ -180,11 +182,13 @@ class PhotoManager : NSObject {
                                 })
                             }
                         })
-                        // Gives time for the cache fetch to occur
-                        self.photoManagerSleep(time: 1)
-                        let keysData = NSKeyedArchiver.archivedData(withRootObject: keysArray)
-                        self.teamsList.set(value: keysData, key: "teams")
-                        self.keyIndex += 1
+                        self.backgroundQueue.async {
+                            // Gives time for the cache fetch to occur
+                            self.photoManagerSleep(time: 1)
+                            let keysData = NSKeyedArchiver.archivedData(withRootObject: keysArray)
+                            self.teamsList.set(value: keysData, key: "teams")
+                            self.keyIndex += 1
+                        }
                     } else {
                         // keyIndex is out of the range of the keysArray, need to restart keyIndex at 0
                         //let keysData = NSKeyedArchiver.archivedData(withRootObject: keysArray)
