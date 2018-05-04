@@ -204,7 +204,6 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         cell.textLabel?.text = "Please Wait..."
         if self.scoutedTeamInfo.count == 0 { return cell }
         var text = "shouldntBeThis"
-        var teamName : String = ""
         if (indexPath as NSIndexPath).section == 1 {
             // If the team has been scouted before
             let scoutedTeamNums = NSMutableArray()
@@ -213,35 +212,8 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                     scoutedTeamNums.add(team["num"]!)
                 }
             }
-        
             // Finding the team name
-            for (_, team) in teams {
-                let teamInfo = team 
-                if teamInfo["number"] as! Int == scoutedTeamNums[(indexPath as NSIndexPath).row] as! Int {
-                    teamName = ""
-                    if teamInfo["name"] != nil{
-                        teamName = String(describing: teamInfo["name"]!)
-                    } else {
-                        teamName = "Offseason Bot"
-                    }
-                    let imageURLs = teamInfo["pitAllImageURLs"] as? [String] ?? [String]()
-                    let pitImageKeys = teamInfo["pitImageKeys"] as? [String] ?? [String]()
-                    if imageURLs.count != pitImageKeys.count {
-                        // 255, 102, 102
-                        cell.backgroundColor = UIColor(red: 255/255, green: 153/255, blue: 153/255, alpha: 1.0)
-                        cell.textLabel!.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
-                    } else if imageURLs.count == 0 {
-                        cell.backgroundColor =  UIColor(white: 1.0, alpha: 1.0)
-                        cell.textLabel!.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
-                    } else {
-                        cell.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
-                        if imageURLs.count != 0 && imageURLs.count == pitImageKeys.count {
-                            cell.textLabel!.textColor = UIColor(red: 119/255, green: 218/255, blue: 72/255, alpha: 1.0)
-                        }
-                    }
-                }
-            }
-            text = "\(scoutedTeamNums[(indexPath as NSIndexPath).row]) - \(teamName)"
+            findTeamNames(neededArray: scoutedTeamNums, cell: cell, indexPath: indexPath, text: &text)
         } else if (indexPath as NSIndexPath).section == 0 {
             let notScoutedTeamNums = NSMutableArray()
             for team in self.scoutedTeamInfo {
@@ -250,35 +222,7 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
                 }
             }
             // Finding the team name
-            for (_, team) in teams {
-                let teamInfo = team as NSDictionary
-                let teamNum = teamInfo["number"] as! Int
-                if teamNum == notScoutedTeamNums[(indexPath as NSIndexPath).row] as! Int {
-                    // Offseason bots don't have team names (8671, 9971)
-                    teamName = ""
-                    if teamInfo["name"] != nil{
-                        teamName = String(describing: teamInfo["name"]!)
-                    } else {
-                        teamName = "Offseason Bot"
-                    }
-                    let imageURLs = teamInfo["pitAllImageURLs"] as? [String] ?? [String]()
-                    let pitImageKeys = teamInfo["pitImageKeys"] as? [String] ?? [String]()
-                    if imageURLs.count != pitImageKeys.count {
-                        // 255, 102, 102
-                        cell.backgroundColor = UIColor(red: 255/255, green: 153/255, blue: 153/255, alpha: 1.0)
-                        cell.textLabel!.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
-                    } else if imageURLs.count == 0 {
-                        cell.backgroundColor =  UIColor(white: 1.0, alpha: 1.0)
-                        cell.textLabel!.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
-                    } else {
-                        cell.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
-                        if imageURLs.count != 0 && imageURLs.count == pitImageKeys.count {
-                            cell.textLabel!.textColor = UIColor(red: 119/255, green: 218/255, blue: 72/255, alpha: 1.0)
-                        }
-                    }
-                }
-            }
-            text = "\(notScoutedTeamNums[(indexPath as NSIndexPath).row]) - \(teamName)"
+            findTeamNames(neededArray: notScoutedTeamNums, cell: cell, indexPath: indexPath, text: &text)
         }
 
         cell.textLabel?.text = "\(text)"
@@ -289,6 +233,38 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
             cell.accessoryType = UITableViewCellAccessoryType.none
         }
         return cell
+    }
+    
+    func findTeamNames(neededArray: NSMutableArray, cell: UITableViewCell, indexPath: IndexPath, text: inout String) {
+        for (_, team) in teams {
+            let teamInfo = team as NSDictionary
+            let teamNum = teamInfo["number"] as! Int
+            if teamNum == neededArray[(indexPath as NSIndexPath).row] as! Int {
+                // Offseason bots don't have team names (8671, 9971)
+                teamName = ""
+                if teamInfo["name"] != nil{
+                    teamName = String(describing: teamInfo["name"]!)
+                } else {
+                    teamName = "Offseason Bot"
+                }
+                let imageURLs = teamInfo["pitAllImageURLs"] as? [String] ?? [String]()
+                let pitImageKeys = teamInfo["pitImageKeys"] as? [String] ?? [String]()
+                if imageURLs.count != pitImageKeys.count {
+                    // 255, 102, 102
+                    cell.backgroundColor = UIColor(red: 255/255, green: 153/255, blue: 153/255, alpha: 1.0)
+                    cell.textLabel!.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
+                } else if imageURLs.count == 0 {
+                    cell.backgroundColor =  UIColor(white: 1.0, alpha: 1.0)
+                    cell.textLabel!.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
+                } else {
+                    cell.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
+                    if imageURLs.count != 0 && imageURLs.count == pitImageKeys.count {
+                        cell.textLabel!.textColor = UIColor(red: 119/255, green: 218/255, blue: 72/255, alpha: 1.0)
+                    }
+                }
+            }
+        }
+        text = "\(neededArray[(indexPath as NSIndexPath).row]) - \(teamName!)"
     }
     
     @objc func didLongPress(_ recognizer: UIGestureRecognizer) {
