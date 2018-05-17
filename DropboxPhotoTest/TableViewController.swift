@@ -72,11 +72,6 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
         self.teams = NSMutableDictionary() as! [String : [String : AnyObject]]
         self.scoutedTeamInfo = []
         self.teamNums = []
-        // var td : NSDictionary?
-        /*if let arrayTeamsDatabase = snap.value as? [NSDictionary] { // If we restore from backup, then the teams will be an array
-            td = NSDictionary(objects: arrayTeamsDatabase, forKeys: Array(arrayTeamsDatabase.map { String(describing: $0["number"] as! Int) }) as [NSCopying])
-        }*/
-        
         let teamsDatabase: NSDictionary = snap.value as! NSDictionary
         for (_, info) in teamsDatabase {
             // teamInfo is the information for the team at certain number
@@ -302,14 +297,6 @@ class TableViewController: UITableViewController, UIPopoverPresentationControlle
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    /*
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let barViewControllers = segue.destinationViewController as! UITabBarController
-        let nav = barViewControllers.viewControllers![2] as! UINavigationController
-        let destinationViewController = nav.topviewcontroller as ProfileController
-        destinationViewController.firstName = self.firstName
-        destinationViewController.lastName = self.lastName
-    }*/
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var number = -1
