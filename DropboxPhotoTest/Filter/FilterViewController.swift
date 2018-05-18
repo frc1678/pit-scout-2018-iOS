@@ -42,6 +42,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Creates the cell that will be used for each team
         self.dataTable.register(UINib(nibName: "CellFilterTableViewCell", bundle: nil), forCellReuseIdentifier: "filterCell")
         self.firebase = Database.database().reference()
         setUpDataPointDropDown(anchorButton: dataPointButton, dataArray: pitDataPoints)
@@ -54,6 +55,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func setUpDataPointDropDown(anchorButton: UIButton, dataArray: [String]) {
+        // Sets up the dropdown menu with all of the different data points
         dataPointDropDown.anchorView = anchorButton
         dataPointDropDown.bottomOffset = CGPoint(x: 0, y: anchorButton.bounds.height)
         dataPointDropDown.dataSource = dataArray
@@ -77,6 +79,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
                     }
                 }
             }
+            // Sets up the dropdown for the filter with all the possible data values
             self!.setUpDataPointValueDropDown(anchorButton: self!.dataPointValueButton, dataArray: self!.pitDataPointValues)
             self!.filterDatapoint = item
             self!.dataPointValueLabel.text = "All"
@@ -97,7 +100,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     @IBAction func dataPointButtonPressed(_ sender: Any) {
-        dataPointDropDown.show()
+           dataPointDropDown.show()
     }
     
     @IBAction func dataPointValueButtonpressed(_ sender: Any) {
@@ -107,6 +110,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
     func filterForData(dataPoint: String) {
         teamsForDataValue = []
         teamDataPoints = []
+        // Iterates through all the team numbers
         for (_, teamData) in self.teamsDictionary {
             let dataDictionary = teamData as! NSDictionary
             let value = dataDictionary.object(forKey: dataPoint)
@@ -127,7 +131,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
             for (teamNum, value) in self.teamDataPoints {
                 if value == filterByValue {
                     teamsForDataValue.append(teamNum)
-                    // list of teams that have pitProgrammingLanguage & C++ ex. [1678,383,...]
+                    // ex. if pitProgrammingLanguage == C++ [1678,383,...]
                 }
             }
         }
@@ -139,6 +143,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Returns number of cells
         var cells = 0
         if filterByValue != "All" {
             cells = teamsForDataValue.count
@@ -162,13 +167,15 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
-    // When the cell gets pressed
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // When a filterCell is selected, prepares to segue into team
         tableView.deselectRow(at: indexPath, animated: true)
         self.performSegue(withIdentifier: "TeamViewController", sender: tableView.cellForRow(at: indexPath))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Segues into the selected team's ViewController
         if let dest = segue.destination as? ViewController {
             let selectedCell = sender as! CellFilterTableViewCell
             let teamNum = Int(selectedCell.teamNum.text!)

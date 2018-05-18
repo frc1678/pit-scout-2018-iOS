@@ -71,6 +71,11 @@ class MissingDataViewController: UIViewController, UITableViewDelegate, UITableV
         dataPointDropDown.selectionAction = { [weak self] (index: Int, item: String) in
             self!.dataPointLabel.text = item
             self!.selectedPitDataPoint = item
+            if index != self!.pitDataPoints.count {
+                let dataPoint = self!.pitDataPoints[index]
+            } else {
+                let dataPoint = self!.pitDataPoints[index - 1]
+            }
             self!.nilDataTable.reloadData()
         }
     }
