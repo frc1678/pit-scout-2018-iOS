@@ -48,7 +48,7 @@ class TimerViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var cells = 0
-        cells = (self.timeArray.count) ?? 0
+        cells = (self.timeArray.count)
         return cells
     }
     
@@ -205,7 +205,7 @@ class TimerViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
    @IBAction func submitButton(_ sender: AnyObject) {
-        if startButton.currentTitle as String! == "Start" && Float(count) != 0 {
+    if startButton.currentTitle as String! == "Start" && Float(count) != 0 {
             let driveTime = Float(count) / 100
             print("number of total seconds is \(driveTime)")
             timeArray.append(driveTime)

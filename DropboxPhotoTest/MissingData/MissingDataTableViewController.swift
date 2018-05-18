@@ -71,7 +71,6 @@ class MissingDataViewController: UIViewController, UITableViewDelegate, UITableV
         dataPointDropDown.selectionAction = { [weak self] (index: Int, item: String) in
             self!.dataPointLabel.text = item
             self!.selectedPitDataPoint = item
-            let dataPoint = self!.pitDataPoints[index]
             self!.nilDataTable.reloadData()
         }
     }
@@ -87,8 +86,8 @@ class MissingDataViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "missingDataCell", for: indexPath) as! MissingDataTableViewCell
-        cell.missingDataPoints.text = "\(missingData[indexPath.row].1)"
-        cell.teamNum.text = "\(missingData[indexPath.row].0)"
+        cell.missingDataPoints.text = "\(missingData[indexPath.row].1)" // The team's missing data points ex. "pitProgrammingLanguage \n pitWheelDiameter"
+        cell.teamNum.text = "\(missingData[indexPath.row].0)" // The team number ex. 1678
         if cell.missingDataPoints.text!.contains(selectedPitDataPoint) {
             cell.backgroundColor = UIColor(red: 255/255, green: 153/255, blue: 153/255, alpha: 1.0)
         } else {

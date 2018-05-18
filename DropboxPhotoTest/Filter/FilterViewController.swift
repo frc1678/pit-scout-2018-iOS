@@ -127,7 +127,7 @@ class FilterViewController: UIViewController, UITableViewDataSource, UITableView
             for (teamNum, value) in self.teamDataPoints {
                 if value == filterByValue {
                     teamsForDataValue.append(teamNum)
-                    // if pitProgrammingLanguage & C++ ex. [1678,383,...]
+                    // list of teams that have pitProgrammingLanguage & C++ ex. [1678,383,...]
                 }
             }
         }
